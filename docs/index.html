@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Head-to-Head Radar · GetResponse</title>
+<style>
+@font-face {
+  font-family: "Archivo"; font-style: normal; font-weight: 100 900; font-stretch: 62% 125%; font-display: swap;
+  src: url(fonts/archivo-latin-wdth-normal.woff2) format("woff2");
+}
+:root {
+  --paper: #ffffff; --surface: #ffffff; --panel: #f0f6fe; --mark: #e8f0fe;
+  --navy: #3a547a; --ink: #394150; --ink-2: #566073; --ink-3: #697384; --line: #dfe6f1;
+  --cyan: #67e0e1; --you: #0aa8bf; --you-ink: #087a8c; --you-wash: #dff6f9;
+  --rival: #3a547a; --btn-bg: #3a547a; --btn-ink: #67e0e1; --focus: #3a547a;
+  --lose-wash: #fdecec; --lose-ink: #9b1c1c; --warn-wash: #fff6e0; --warn-ink: #6b4a00;
+  --shadow: 0 4px 18px rgba(58,84,122,.10);
+  --heat: 58,84,122;
+  --sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1623; --surface: #161f30; --panel: #1b2740; --mark: #243452;
+    --navy: #a9c1e6; --ink: #dfe6f2; --ink-2: #b2bccd; --ink-3: #8c97aa; --line: #2a3750;
+    --you: #67e0e1; --you-ink: #67e0e1; --you-wash: #17353b; --rival: #8fa9d1;
+    --btn-bg: #67e0e1; --btn-ink: #0f1623; --focus: #67e0e1; --shadow: none;
+    --lose-wash: #3a1d22; --lose-ink: #fca5a5; --warn-wash: #3a2f12; --warn-ink: #f5d98a;
+    --heat: 143,169,209;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1623; --surface: #161f30; --panel: #1b2740; --mark: #243452;
+  --navy: #a9c1e6; --ink: #dfe6f2; --ink-2: #b2bccd; --ink-3: #8c97aa; --line: #2a3750;
+  --you: #67e0e1; --you-ink: #67e0e1; --you-wash: #17353b; --rival: #8fa9d1;
+  --btn-bg: #67e0e1; --btn-ink: #0f1623; --focus: #67e0e1; --shadow: none;
+  --lose-wash: #3a1d22; --lose-ink: #fca5a5; --warn-wash: #3a2f12; --warn-ink: #f5d98a;
+  --heat: 143,169,209;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--sans); font-stretch: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; border-radius: 4px; }
+.hide { display: none !important; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px 88px; }
+.mast { display: flex; justify-content: space-between; align-items: center; gap: 12px 16px; flex-wrap: wrap; padding: 24px 0 36px; }
+.nav { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.brand { font: 800 18px/1 var(--sans); font-stretch: 112%; color: var(--navy); margin: 0 10px 0 2px; }
+.vs { font-size: 15px; color: var(--ink-3); margin-right: 2px; }
+.nav button { padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--navy); font: 700 15px/1.2 var(--sans); }
+.nav button:hover { border-color: var(--navy); }
+.nav button[aria-pressed="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
+.stamp { font-size: 14px; color: var(--ink-3); }
+.mockbar { margin: -12px 0 36px; padding: 10px 14px; border-radius: 10px; background: var(--warn-wash); color: var(--warn-ink); font-size: 14px; }
+
+h1.title { font-size: clamp(32px, 4.4vw, 52px); line-height: 1.08; letter-spacing: -.02em; max-width: 20em; text-wrap: balance; }
+.title { margin: 0; color: var(--navy); font: 800 clamp(26px, 3vw, 34px)/1.1 var(--sans); font-stretch: 110%; letter-spacing: -.015em; text-wrap: balance; }
+.lead { margin: 20px 0 28px; max-width: 44em; color: var(--navy); font-size: clamp(19px, 2vw, 24px); line-height: 1.5; font-weight: 600; letter-spacing: -.005em; }
+.sub { margin: 8px 0 0; color: var(--ink-2); font-size: 16px; max-width: 52em; }
+.sec { margin-top: 88px; }
+.sechead { margin: 0 0 24px; }
+
+.points { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 20px; }
+.points li { background: var(--panel); border-radius: 14px; padding: 24px; box-shadow: var(--shadow); }
+.points p { margin: 0 0 16px; font-size: 18px; line-height: 1.5; font-weight: 500; color: var(--ink); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-block; padding: 3px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--line); color: var(--navy); font-size: 14px; font-weight: 600; }
+.chip.you { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
+
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 18px; font-size: 14px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 12px; height: 12px; border-radius: 3px; display: inline-block; flex: none; }
+
+.tablewrap { overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.45; }
+th { padding: 12px 14px; font-size: 13px; font-weight: 700; color: var(--ink-2); text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; background: var(--surface); }
+th small { display: block; font-weight: 400; color: var(--ink-3); }
+td { padding: 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.rl { font-weight: 700; color: var(--navy); }
+.rl small { display: block; font-weight: 400; color: var(--ink-3); font-size: 13px; }
+.badge { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--btn-bg); color: var(--btn-ink); font: 800 15px/1 var(--sans); }
+.you-t { color: var(--you-ink); font-weight: 700; }
+.riv-t { color: var(--rival); font-weight: 700; }
+.muted { color: var(--ink-3); font-size: 14px; }
+.pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; }
+.p-outdated { background: var(--you-wash); color: var(--you-ink); }
+.p-holds { background: var(--mark); color: var(--navy); }
+.p-unclear { background: var(--panel); color: var(--ink-2); border: 1px dashed var(--line); }
+.cells { display: inline-flex; gap: 3px; vertical-align: middle; }
+.cells i { width: 16px; height: 8px; border-radius: 2px; background: var(--line); display: inline-block; }
+.cells i.on { background: var(--navy); }
+
+.sb td.v { text-align: center; padding: 12px 8px; }
+.sb td.v b { display: block; font: 800 18px/1.2 var(--sans); }
+.sb td.v small { display: block; margin-top: 3px; font-size: 12px; color: var(--ink-3); }
+.sb td.win { background: var(--you-wash); } .sb td.win b { color: var(--you-ink); }
+.sb td.lose { background: var(--lose-wash); } .sb td.lose b { color: var(--lose-ink); }
+.sb td.split { background: var(--mark); } .sb td.split b { color: var(--navy); }
+.sb th.c { text-align: center; }
+
+.h2h { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 20px; margin-top: 24px; }
+.col { background: var(--surface); border: 1px solid var(--line); border-top: 6px solid var(--rival); border-radius: 12px; padding: 24px; min-width: 0; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 14px; }
+.col.you { border-top-color: var(--you); }
+.cname { margin: 0; color: var(--navy); font: 800 24px/1.1 var(--sans); font-stretch: 108%; }
+.srow { display: flex; flex-direction: column; gap: 6px; }
+.srow div:first-child { display: flex; justify-content: space-between; gap: 8px; }
+.bar { height: 10px; border-radius: 6px; background: var(--panel); overflow: hidden; }
+.bar i { display: block; height: 100%; border-radius: 6px; }
+
+.heat { text-align: center; font: 700 15px/1 var(--sans); color: var(--navy); }
+.tabs { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 32px 0 12px; }
+.tabslabel { margin-right: 4px; font-size: 15px; color: var(--ink-2); }
+.tabs button { padding: 8px 16px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--navy); font-size: 15px; font-weight: 600; }
+.tabs button:hover { border-color: var(--navy); }
+.tabs button[aria-selected="true"] { background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-ink); }
+
+.versus { margin: 20px 0 0; padding: 20px 24px; border-radius: 12px; border-left: 6px solid var(--you); background: var(--panel); font-size: 17px; line-height: 1.5; box-shadow: var(--shadow); }
+.versus b { color: var(--navy); }
+.note { max-width: 62em; margin: 18px 0 0; font-size: 14px; color: var(--ink-3); }
+.empty-note { color: var(--ink-3); font-size: 16px; background: var(--panel); border-radius: 12px; padding: 20px 24px; margin: 0; }
+.how { margin: 0; padding-left: 20px; color: var(--ink-2); max-width: 62em; }
+.how li { margin: 6px 0; }
+@media (max-width: 640px) { .sec { margin-top: 64px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <nav class="nav" aria-label="Competitor">
+      <svg width="24" height="24" viewBox="0 0 32 32" aria-hidden="true"><rect x="4" y="17" width="7" height="11" rx="2" fill="#3a547a"/><rect x="12.5" y="10" width="7" height="18" rx="2" fill="#3a547a"/><rect x="21" y="3" width="7" height="25" rx="2" fill="#0aa8bf"/></svg>
+      <span class="brand">Head-to-Head Radar</span>
+      <span class="vs">GetResponse vs</span>
+      <span id="rivalBtns" style="display:contents"></span>
+    </nav>
+    <span class="stamp" id="stamp"></span>
+  </header>
+  <p class="mockbar hide" id="mockbar"></p>
+  <main id="app"><p class="empty-note">Loading…</p></main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var LIST = null, CACHE = {}, CUR = null, TAB = "claude";
+  var ENGINES = [["claude", "Claude"], ["chatgpt", "ChatGPT"], ["gemini", "Gemini"], ["google", "Google"]];
+  var VERDICT = { outdated: "Outdated", holds: "Holds", unclear: "Unclear" };
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function $(id) { return document.getElementById(id); }
+  function pill(v) { return '<span class="pill p-' + v + '">' + VERDICT[v] + "</span>"; }
+
+  function load(path) {
+    return fetch(path, { cache: "no-cache" }).then(function (r) { if (!r.ok) throw new Error(path + " " + r.status); return r.json(); });
+  }
+
+  function navButtons() {
+    $("rivalBtns").innerHTML = LIST.rivals.map(function (r) {
+      return '<button type="button" data-id="' + esc(r.id) + '" aria-pressed="' + (CUR === r.id) + '">' + esc(r.name) + "</button>";
+    }).join("");
+    Array.prototype.forEach.call($("rivalBtns").querySelectorAll("button"), function (b) {
+      b.onclick = function () { location.hash = b.getAttribute("data-id"); };
+    });
+  }
+
+  function show(id) {
+    var r = LIST.rivals.filter(function (x) { return x.id === id; })[0] || LIST.rivals[0];
+    CUR = r.id; navButtons();
+    var p = CACHE[r.id] ? Promise.resolve(CACHE[r.id]) : load("data/" + r.file).then(function (d) { CACHE[r.id] = d; return d; });
+    p.then(render).catch(function (e) { $("app").innerHTML = '<p class="empty-note">Couldn\'t load the data for ' + esc(r.name) + ". " + esc(e.message) + "</p>"; });
+  }
+
+  function render(d) {
+    document.title = "GetResponse vs " + d.rival + " · Head-to-Head Radar";
+    if (d.pending) {
+      $("stamp").textContent = "";
+      $("mockbar").classList.add("hide");
+      $("app").innerHTML = '<h1 class="title">GetResponse vs ' + esc(d.rival) + '</h1><p class="lead">Not run yet.</p><p class="empty-note">This matchup has no data yet. It uses the same 40 runs (10 prompts × Claude, ChatGPT, Gemini and Google) as the Klaviyo page once collected.</p>';
+      return;
+    }
+    $("stamp").textContent = "Claude · ChatGPT · Gemini · Google · " + d.market + " · " + d.collected;
+    var mb = $("mockbar");
+    if (d.sample) { mb.innerHTML = "<b>Sample data.</b> Layout and logic test. Numbers and claims are illustrative until the 40 runs are collected and the claims checked."; mb.classList.remove("hide"); }
+    else mb.classList.add("hide");
+    var R = esc(d.rival), h = "";
+
+    // headline
+    h += '<h1 class="title">GetResponse vs ' + R + ": what AI tells online store owners</h1>";
+    h += '<p class="lead">' + esc(d.headline.lead) + "</p>";
+    h += '<ul class="points">' + d.headline.points.map(function (pt) {
+      return "<li><p>" + esc(pt.text) + '</p><div class="chips">' + pt.chips.map(function (c, i) { return '<span class="chip' + (pt.youChip === i ? " you" : "") + '">' + esc(c) + "</span>"; }).join("") + "</div></li>";
+    }).join("") + "</ul>";
+
+    // 1 priority
+    h += '<section class="sec"><div class="sechead"><h2 class="title">Suggested feature priority</h2>' +
+      '<p class="sub">The order to cover features on the GetResponse vs ' + R + ' comparison page. Ranked by store need and how far the AI view is from what is true today. Outdated weaknesses come first.</p></div>' +
+      '<div class="legend"><span>' + pill("outdated") + "AI calls it a GetResponse weakness; the live check says it isn't any more</span><span>" + pill("holds") + "Still true today</span><span>" + pill("unclear") + "Not settled</span></div>" +
+      '<div class="tablewrap"><table><thead><tr><th>Rank</th><th>Feature</th><th>Store need</th><th>What AI says</th><th>Live check</th><th>Why it\'s ranked here</th></tr></thead><tbody>' +
+      d.priority.map(function (r, i) {
+        var cells = ""; for (var n = 1; n <= 5; n++) cells += '<i class="' + (n <= r.need ? "on" : "") + '"></i>';
+        return '<tr><td><span class="badge">' + (i + 1) + '</span></td><td class="rl" style="min-width:180px">' + esc(r.feature) + '</td><td style="white-space:nowrap"><span class="cells" role="img" aria-label="Store need ' + r.need + ' of 5">' + cells + '</span> <span class="muted num">' + r.need + '/5</span></td><td style="min-width:160px">' + esc(r.ai) + "</td><td>" + pill(r.verdict) + '</td><td style="min-width:280px">' + esc(r.reason) + "</td></tr>";
+      }).join("") + "</tbody></table></div>" +
+      '<p class="note">Store need (1–5) is Launch Space\'s judgement for e-commerce clients. Rank weighs need against the gap between what AI says and what is true today; an outdated weakness counts double. A weakness that holds goes lower and is covered honestly.</p></section>';
+
+    // 2 question
+    h += '<section class="sec"><div class="sechead"><h2 class="title">Which is better for an online store, GetResponse or ' + R + "?</h2>" +
+      '<p class="sub">Who each engine picks when forced to choose, out of 10 runs (5 per name order).</p></div>' +
+      '<div class="legend"><span><i class="sw" style="background:var(--you-wash);border:1px solid var(--you)"></i>GetResponse picked more often</span><span><i class="sw" style="background:var(--lose-wash);border:1px solid #e9a5a5"></i>' + R + ' picked more often</span><span><i class="sw" style="background:var(--mark);border:1px solid #a9bfe0"></i>Split</span></div>' +
+      '<div class="tablewrap"><table class="sb"><thead><tr><th>Engine</th><th class="c">GetResponse</th><th class="c">' + R + '</th><th class="c">No pick</th><th class="c">Result</th></tr></thead><tbody>' +
+      d.scoreboard.map(function (e) {
+        var lead = e.rival > e.gr ? d.rival : e.gr > e.rival ? "GetResponse" : "Tie";
+        var cls = e.split ? "split" : e.gr > e.rival ? "win" : "lose";
+        return '<tr><td class="rl">' + esc(e.engine) + "<small>" + esc(e.mode) + '</small></td><td class="v"><b class="you-t num">' + e.gr + '</b></td><td class="v"><b class="riv-t num">' + e.rival + '</b></td><td class="v"><b class="num" style="color:var(--ink-3)">' + e.none + '</b></td><td class="v ' + cls + '"><b>' + esc(lead) + " " + Math.max(e.gr, e.rival) + "/10</b><small>" + (e.split ? "Split: changes with name order" : "Stable in both orders") + "</small></td></tr>";
+      }).join("") + "</tbody></table></div>";
+    function srows(list, color) {
+      return list.map(function (w) { return '<div class="srow"><div><span>' + esc(w.label) + '</span><span class="muted num">' + w.n + '/40</span></div><div class="bar"><i style="width:' + Math.round(w.n / 40 * 100) + "%;background:" + color + '"></i></div></div>'; }).join("");
+    }
+    h += '<div class="h2h"><div class="col you"><h3 class="cname">GetResponse</h3><span class="muted">What the 40 answers credit GetResponse with</span>' + srows(d.strengths.gr, "var(--you)") + "</div>" +
+      '<div class="col"><h3 class="cname">' + R + '</h3><span class="muted">What the 40 answers credit ' + R + " with</span>" + srows(d.strengths.rival, "var(--rival)") + "</div></div></section>";
+
+    // 3 consensus + tabs
+    h += '<section class="sec"><div class="sechead"><h2 class="title">What all four engines agree on</h2><p class="sub">How many of each engine\'s 10 answers make the claim. Claims made by 3 or 4 engines are the ones the comparison page must answer.</p></div>' +
+      '<div class="tablewrap"><table><thead><tr><th>Claim in the answers</th>' + ENGINES.map(function (e) { return '<th style="text-align:center">' + e[1] + "</th>"; }).join("") + "<th>Engines agreeing</th></tr></thead><tbody>" +
+      d.consensus.map(function (c) {
+        var n = ENGINES.filter(function (e) { return (c.counts[e[0]] || 0) >= 6; }).length;
+        return '<tr><td class="rl" style="min-width:260px">' + esc(c.claim) + "</td>" + ENGINES.map(function (e) { var v = c.counts[e[0]] || 0; return '<td class="heat num" style="background:rgba(var(--heat),' + (v / 10 * 0.32).toFixed(2) + ')">' + v + "</td>"; }).join("") +
+          "<td>" + (n >= 3 ? '<span class="pill p-holds">' : '<span class="pill p-unclear">') + n + " of 4</span></td></tr>";
+      }).join("") + "</tbody></table></div>" +
+      '<div class="tabs" role="tablist" aria-label="Engine"><span class="tabslabel">Answers by engine</span>' +
+      ENGINES.map(function (e) { return '<button type="button" role="tab" data-tab="' + e[0] + '" aria-selected="' + (TAB === e[0]) + '">' + e[1] + "</button>"; }).join("") + "</div>" +
+      '<div id="answers"></div></section>';
+
+    // 4 retest
+    h += '<section class="sec"><div class="sechead"><h2 class="title">Does it hold up, or is it old training data?</h2><p class="sub">Each claim asked again with web search off (what the model learned in training) and on (what it finds today), then checked against the vendor\'s own pages.</p></div>' +
+      '<div class="tablewrap"><table><thead><tr><th>Claim</th><th>Training data<small>search off</small></th><th>Live<small>search on + Google</small></th><th>Primary source check</th><th>Verdict</th></tr></thead><tbody>' +
+      d.retest.map(function (x) {
+        var tp = Math.round(x.train / x.trainOf * 100), lp = Math.round(x.live / x.liveOf * 100);
+        return '<tr><td class="rl" style="min-width:220px">' + esc(x.claim) + '</td><td style="min-width:150px"><span class="num">' + tp + '% agree</span><div class="bar" style="margin-top:6px"><i style="width:' + tp + '%;background:#a9bfe0"></i></div></td>' +
+          '<td style="min-width:150px"><span class="num">' + lp + '% agree</span><div class="bar" style="margin-top:6px"><i style="width:' + lp + '%;background:var(--navy)"></i></div></td>' +
+          '<td style="min-width:240px">' + esc(x.check) + (x.url ? ' <a href="' + esc(x.url) + '" target="_blank" rel="noopener">Source</a>' : ' <span class="muted">[source to add]</span>') + "</td><td>" + pill(x.verdict) + "</td></tr>";
+      }).join("") + "</tbody></table></div>" +
+      '<p class="versus"><b>The gap to close:</b> ' + esc(d.gapNote) + "</p></section>";
+
+    // how
+    h += '<section class="sec"><div class="sechead"><h2 class="title">How this works, and what it doesn\'t cover yet</h2></div><ul class="how">' +
+      "<li>10 fixed prompts per engine, the same set for all four, asked logged out from the US. Prompts 1 and 2 swap the name order.</li>" +
+      "<li>Google = the AI Overview plus the top 3 organic results for the same query.</li>" +
+      "<li>Training data = Claude, ChatGPT and Gemini with web search off. Live = search on, plus Google.</li>" +
+      "<li>Primary source check = the vendor's own pricing page, docs or release notes, read by a person. An AI answer never counts as proof.</li>" +
+      "<li>Not covered yet: logged-in runs, non-US results, Perplexity and Copilot.</li></ul></section>";
+
+    $("app").innerHTML = h;
+    Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) {
+      b.onclick = function () { TAB = b.getAttribute("data-tab"); renderAnswers(d); };
+    });
+    renderAnswers(d);
+  }
+
+  function renderAnswers(d) {
+    Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) { b.setAttribute("aria-selected", b.getAttribute("data-tab") === TAB); });
+    var a = d.answers[TAB];
+    $("answers").innerHTML = '<p class="note" style="margin:0 0 12px">' + esc(a.note) + "</p>" +
+      '<div class="tablewrap"><table><thead><tr><th>#</th><th>Prompt</th><th>Pick</th><th>Main reason given</th><th>Sources cited</th></tr></thead><tbody>' +
+      d.prompts.map(function (p, i) {
+        var r = a.rows[i] || ["", "", ""];
+        var cls = r[0] === "GetResponse" ? "you-t" : r[0] === d.rival ? "riv-t" : "muted";
+        return '<tr><td class="muted num">' + (i + 1) + '</td><td style="min-width:260px">' + esc(p) + '</td><td><span class="' + cls + '">' + esc(r[0]) + '</span></td><td style="min-width:240px">' + esc(r[1]) + '</td><td class="muted">' + esc(r[2] || "None") + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  }
+
+  load("data/rivals.json").then(function (l) {
+    LIST = l;
+    var go = function () { show((location.hash || "").replace("#", "") || LIST.rivals[0].id); };
+    window.addEventListener("hashchange", go);
+    go();
+  }).catch(function (e) { $("app").innerHTML = '<p class="empty-note">Couldn\'t load data/rivals.json. ' + esc(e.message) + "</p>"; });
+})();
+</script>
+</body>
+</html>

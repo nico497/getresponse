@@ -1,0 +1,9 @@
+{
+  "you": "GetResponse",
+  "rivals": [
+    { "id": "klaviyo", "name": "Klaviyo", "file": "klaviyo.json" },
+    { "id": "mailchimp", "name": "Mailchimp", "file": "mailchimp.json" },
+    { "id": "omnisend", "name": "Omnisend", "file": "omnisend.json" },
+    { "id": "brevo", "name": "Brevo", "file": "brevo.json" }
+  ]
+}
