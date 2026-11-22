@@ -16,14 +16,17 @@ PREFERRED = ["gemini-3.1-pro-preview", "gemini-3.1-pro", "gemini-3-pro-preview",
 def call(prompt, search):
     body = {"contents": [{"role": "user", "parts": [{"text": prompt}]}]}
     if search:
+        # The Gemini API can't force a search; this instruction is the closest match to ChatGPT's forced search.
         body["tools"] = [{"google_search": {}}]
+        body["systemInstruction"] = {"parts": [{"text": "Use Google Search to check current information before answering."}]}
     data = http(f"{BASE}/models/{MODEL}:generateContent", body, H)
     cand = (data.get("candidates") or [{}])[0]
     text = "".join(p.get("text", "") for p in cand.get("content", {}).get("parts", []))
     gm = cand.get("groundingMetadata") or {}
     # Grounding URIs are Google redirect links; the title holds the source domain.
     sources = sorted({(c.get("web") or {}).get("title", "") for c in gm.get("groundingChunks", [])} - {""})
-    return {"text": text.strip(), "searched": bool(gm.get("webSearchQueries")), "sources": sources,
+    return {"text": text.strip(), "searched": bool(gm.get("webSearchQueries") or gm.get("groundingChunks")), "sources": sources,
+            "grounding_keys": sorted(gm.keys()),
             "queries": gm.get("webSearchQueries", [])}
 
 
