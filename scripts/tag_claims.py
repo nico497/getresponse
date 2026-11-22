@@ -27,12 +27,17 @@ GUIDE = ("You label answers about two email marketing tools. A claim counts only
 
 
 def tag(text):
-    body = {"model": MODEL, "max_tokens": 100, "system": GUIDE,
-            "messages": [{"role": "user", "content": text[:20000]}]}
-    out = "".join(b.get("text", "") for b in http("https://api.anthropic.com/v1/messages", body, H)["content"])
-    m = re.search(r"\{.*\}", out, re.S)
-    letters = json.loads(m.group(0))["claims"] if m else []
-    return "".join(sorted({l for l in letters if l in CLAIMS}))
+    body = {"model": MODEL, "max_tokens": 400, "system": GUIDE,
+            "messages": [{"role": "user", "content": "Answer to label:\n\n" + text[:20000]}]}
+    out = "".join(b.get("text", "") for b in http("https://api.anthropic.com/v1/messages", body, H)["content"]
+                  if b.get("type") == "text")
+    m = re.search(r'"claims"\s*:\s*\[(.*?)\]', out, re.S)
+    letters = set(re.findall(r'"\s*([A-I])\b', m.group(1))) if m else set()
+    RAWLOG.append({"reply": out[:300], "letters": "".join(sorted(letters))})
+    return "".join(sorted(letters))
+
+
+RAWLOG = []
 
 
 def main():
@@ -51,6 +56,7 @@ def main():
             tags.setdefault(key, {})[str(r["n"])] = tag(r["text"])
         print(eng, {k: v for k, v in tags.items() if k.startswith(eng)}, flush=True)
     json.dump(tags, open(path, "w"), indent=1)
+    json.dump(RAWLOG, open(f"data/raw/claim-tags-log-{R.lower()}.json", "w"), indent=1)
     print("wrote", path)
 
 
