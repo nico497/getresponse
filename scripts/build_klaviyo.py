@@ -46,8 +46,7 @@ d={
  "points":[
   {"text":"Klaviyo is picked in 47 of 60 answers. GetResponse wins 3, all on price or all-in-one value.","chips":["6 runs × 10 prompts","US, logged out"]},
   {"text":"“Klaviyo has better revenue reporting” comes from training data: 18 of 20 search-off answers say it, 13 of 30 live ones. GetResponse now reports revenue per message and per workflow.","chips":["Outdated","Revenue attribution"],"youChip":0},
-  {"text":"Price is the main reason AI ever picks GetResponse, but it only holds at bigger lists. At 1k contacts the plan with abandoned cart costs $59 against Klaviyo's $30.","chips":["30 of 40 live answers","Partly holds"]},
-  {"text":"GetResponse's own comparison page ranks #1 on Google for 5 of 10 prompts. AI Overviews still pick it once and leave it out of “Klaviyo alternatives”.","chips":["Google US","Organic vs AI Overview"]}]},
+  {"text":"Price is the main reason AI ever picks GetResponse, but it only holds at bigger lists. At 1k contacts the plan with abandoned cart costs $59 against Klaviyo's $30.","chips":["30 of 40 live answers","Partly holds"]}]},
 "priority":[
  {"feature":"E-commerce automation flows","need":5,"ai":f"Klaviyo deeper ({live('E')}/40)","verdict":"partly","reason":"Top store need and a widely repeated weakness. Browse abandonment and price drop campaigns are new (Apr 2026) and answers miss them. Back-in-stock is still missing, so say so."},
  {"feature":"Revenue attribution","need":4,"ai":f"Klaviyo better ({live('D')}/40)","verdict":"outdated","reason":"The clearest training-data gap: 90% of search-off answers make the claim, 43% of live ones. GetResponse now reports revenue per message and workflow (Marketer and up). Easy win."},
@@ -82,7 +81,7 @@ d={
  {"claim":CL['G'],"k":"G","check":"SMS only in GetResponse MAX (Enterprise, from $1,099/mo per the Shopify listing).","url":SHOP,"verdict":"holds"},
  {"claim":CL['F'],"k":"F","check":"Creator plan includes webinars, courses and a website builder.","url":PRICE,"verdict":"holds"},
  {"claim":CL['I'],"k":"I","check":"No primary source settles it.","url":"","verdict":"unclear"}],
-"gapNote":"Live search barely moves the pick: Klaviyo 19 of 20 with search off, 17 of 20 with it on (Claude and ChatGPT). ChatGPT cited getresponse.com in 9 of 10 live answers and still credited Klaviyo with better revenue attribution. The page needs plain, dated statements on revenue attribution and the new flows, so live engines have something to quote.",
+"gapNote":"Live search barely moves the pick: Klaviyo 19 of 20 with search off, 17 of 20 with it on (Claude and ChatGPT). ChatGPT cited getresponse.com in 9 of 10 live answers and still credited Klaviyo with better revenue attribution. The page needs plain, dated statements on revenue attribution and the new flows, so live engines have something to quote. GetResponse's own comparison page already ranks #1 on Google for 5 of 10 prompts, yet AI Overviews pick it once and leave it out of “Klaviyo alternatives”.",
 "how":["10 fixed prompts, the same for every engine, asked from the US (VPN), logged out. Prompts 1 and 2 swap the name order; every engine answered the same both ways.",
  "Claude: a clean helper, search off then on. ChatGPT: OpenAI API (gpt-5.2), search off then forced on.",
  "Gemini: web app. It decides when to search, so it counts as live only. Google: the AI Overview, plus where getresponse.com ranks.",

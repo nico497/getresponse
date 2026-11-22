@@ -27,13 +27,6 @@
      "30 of 40 live answers",
      "Partly holds"
     ]
-   },
-   {
-    "text": "GetResponse's own comparison page ranks #1 on Google for 5 of 10 prompts. AI Overviews still pick it once and leave it out of “Klaviyo alternatives”.",
-    "chips": [
-     "Google US",
-     "Organic vs AI Overview"
-    ]
    }
   ]
  },
@@ -759,7 +752,7 @@
    "liveOf": 30
   }
  ],
- "gapNote": "Live search barely moves the pick: Klaviyo 19 of 20 with search off, 17 of 20 with it on (Claude and ChatGPT). ChatGPT cited getresponse.com in 9 of 10 live answers and still credited Klaviyo with better revenue attribution. The page needs plain, dated statements on revenue attribution and the new flows, so live engines have something to quote.",
+ "gapNote": "Live search barely moves the pick: Klaviyo 19 of 20 with search off, 17 of 20 with it on (Claude and ChatGPT). ChatGPT cited getresponse.com in 9 of 10 live answers and still credited Klaviyo with better revenue attribution. The page needs plain, dated statements on revenue attribution and the new flows, so live engines have something to quote. GetResponse's own comparison page already ranks #1 on Google for 5 of 10 prompts, yet AI Overviews pick it once and leave it out of “Klaviyo alternatives”.",
  "how": [
   "10 fixed prompts, the same for every engine, asked from the US (VPN), logged out. Prompts 1 and 2 swap the name order; every engine answered the same both ways.",
   "Claude: a clean helper, search off then on. ChatGPT: OpenAI API (gpt-5.2), search off then forced on.",
