@@ -93,6 +93,7 @@ tr:last-child td { border-bottom: 0; }
 .pill { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; }
 .p-outdated { background: var(--you-wash); color: var(--you-ink); }
 .p-holds { background: var(--mark); color: var(--navy); }
+.p-partly { background: #fff3d6; color: #7a5200; }
 .p-unclear { background: var(--panel); color: var(--ink-2); border: 1px dashed var(--line); }
 .cells { display: inline-flex; gap: 3px; vertical-align: middle; }
 .cells i { width: 16px; height: 8px; border-radius: 2px; background: var(--line); display: inline-block; }
@@ -151,7 +152,7 @@ tr:last-child td { border-bottom: 0; }
   "use strict";
   var LIST = null, CACHE = {}, CUR = null, TAB = "claude";
   var ENGINES = [["claude", "Claude"], ["chatgpt", "ChatGPT"], ["gemini", "Gemini"], ["google", "Google"]];
-  var VERDICT = { outdated: "Outdated", holds: "Holds", unclear: "Unclear" };
+  var VERDICT = { outdated: "Outdated", partly: "Partly outdated", holds: "Holds", unclear: "Unclear" };
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
   function $(id) { return document.getElementById(id); }
@@ -189,7 +190,8 @@ tr:last-child td { border-bottom: 0; }
     var mb = $("mockbar");
     if (d.sample) { mb.innerHTML = "<b>Sample data.</b> Layout and logic test. Numbers and claims are illustrative until the 40 runs are collected and the claims checked."; mb.classList.remove("hide"); }
     else mb.classList.add("hide");
-    var R = esc(d.rival), h = "";
+    var R = esc(d.rival), h = "", EN = d.engines || ENGINES, TABS = d.tabs || ENGINES;
+    if (!TABS.some(function (t) { return t[0] === TAB; })) TAB = TABS[0][0];
 
     // headline
     h += '<h1 class="title">GetResponse vs ' + R + ": what AI tells online store owners</h1>";
@@ -201,7 +203,7 @@ tr:last-child td { border-bottom: 0; }
     // 1 priority
     h += '<section class="sec"><div class="sechead"><h2 class="title">Suggested feature priority</h2>' +
       '<p class="sub">The order to cover features on the GetResponse vs ' + R + ' comparison page. Ranked by store need and how far the AI view is from what is true today. Outdated weaknesses come first.</p></div>' +
-      '<div class="legend"><span>' + pill("outdated") + "AI calls it a GetResponse weakness; the live check says it isn't any more</span><span>" + pill("holds") + "Still true today</span><span>" + pill("unclear") + "Not settled</span></div>" +
+      '<div class="legend"><span>' + pill("outdated") + "AI calls it a GetResponse weakness; the live check says it isn't any more</span><span>" + pill("partly") + "Part of the claim is out of date</span><span>" + pill("holds") + "Still true today</span><span>" + pill("unclear") + "Not settled</span></div>" +
       '<div class="tablewrap"><table><thead><tr><th>Rank</th><th>Feature</th><th>Store need</th><th>What AI says</th><th>Live check</th><th>Why it\'s ranked here</th></tr></thead><tbody>' +
       d.priority.map(function (r, i) {
         var cells = ""; for (var n = 1; n <= 5; n++) cells += '<i class="' + (n <= r.need ? "on" : "") + '"></i>';
@@ -211,30 +213,30 @@ tr:last-child td { border-bottom: 0; }
 
     // 2 question
     h += '<section class="sec"><div class="sechead"><h2 class="title">Which is better for an online store, GetResponse or ' + R + "?</h2>" +
-      '<p class="sub">Who each engine picks when forced to choose, out of 10 runs (5 per name order).</p></div>' +
+      '<p class="sub">Who each engine picks across the 10 prompts. Prompts 1 and 2 swap the name order.</p></div>' +
       '<div class="legend"><span><i class="sw" style="background:var(--you-wash);border:1px solid var(--you)"></i>GetResponse picked more often</span><span><i class="sw" style="background:var(--lose-wash);border:1px solid #e9a5a5"></i>' + R + ' picked more often</span><span><i class="sw" style="background:var(--mark);border:1px solid #a9bfe0"></i>Split</span></div>' +
       '<div class="tablewrap"><table class="sb"><thead><tr><th>Engine</th><th class="c">GetResponse</th><th class="c">' + R + '</th><th class="c">No pick</th><th class="c">Result</th></tr></thead><tbody>' +
       d.scoreboard.map(function (e) {
         var lead = e.rival > e.gr ? d.rival : e.gr > e.rival ? "GetResponse" : "Tie";
         var cls = e.split ? "split" : e.gr > e.rival ? "win" : "lose";
-        return '<tr><td class="rl">' + esc(e.engine) + "<small>" + esc(e.mode) + '</small></td><td class="v"><b class="you-t num">' + e.gr + '</b></td><td class="v"><b class="riv-t num">' + e.rival + '</b></td><td class="v"><b class="num" style="color:var(--ink-3)">' + e.none + '</b></td><td class="v ' + cls + '"><b>' + esc(lead) + " " + Math.max(e.gr, e.rival) + "/10</b><small>" + (e.split ? "Split: changes with name order" : "Stable in both orders") + "</small></td></tr>";
+        return '<tr><td class="rl">' + esc(e.engine) + "<small>" + esc(e.mode) + '</small></td><td class="v"><b class="you-t num">' + e.gr + '</b></td><td class="v"><b class="riv-t num">' + e.rival + '</b></td><td class="v"><b class="num" style="color:var(--ink-3)">' + e.none + '</b></td><td class="v ' + cls + '"><b>' + esc(lead) + " " + Math.max(e.gr, e.rival) + "/10</b><small>" + esc(e.note || (e.split ? "Split: changes with name order" : "Stable in both orders")) + "</small></td></tr>";
       }).join("") + "</tbody></table></div>";
     function srows(list, color) {
       return list.map(function (w) { return '<div class="srow"><div><span>' + esc(w.label) + '</span><span class="muted num">' + w.n + '/40</span></div><div class="bar"><i style="width:' + Math.round(w.n / 40 * 100) + "%;background:" + color + '"></i></div></div>'; }).join("");
     }
-    h += '<div class="h2h"><div class="col you"><h3 class="cname">GetResponse</h3><span class="muted">What the 40 answers credit GetResponse with</span>' + srows(d.strengths.gr, "var(--you)") + "</div>" +
-      '<div class="col"><h3 class="cname">' + R + '</h3><span class="muted">What the 40 answers credit ' + R + " with</span>" + srows(d.strengths.rival, "var(--rival)") + "</div></div></section>";
+    h += '<div class="h2h"><div class="col you"><h3 class="cname">GetResponse</h3><span class="muted">What the 40 live answers credit GetResponse with</span>' + srows(d.strengths.gr, "var(--you)") + "</div>" +
+      '<div class="col"><h3 class="cname">' + R + '</h3><span class="muted">What the 40 live answers credit ' + R + " with</span>" + srows(d.strengths.rival, "var(--rival)") + "</div></div></section>";
 
     // 3 consensus + tabs
-    h += '<section class="sec"><div class="sechead"><h2 class="title">What all four engines agree on</h2><p class="sub">How many of each engine\'s 10 answers make the claim. Claims made by 3 or 4 engines are the ones the comparison page must answer.</p></div>' +
-      '<div class="tablewrap"><table><thead><tr><th>Claim in the answers</th>' + ENGINES.map(function (e) { return '<th style="text-align:center">' + e[1] + "</th>"; }).join("") + "<th>Engines agreeing</th></tr></thead><tbody>" +
+    h += '<section class="sec"><div class="sechead"><h2 class="title">What all four engines agree on</h2><p class="sub">How many of each engine\'s 10 live answers make the claim (Claude and ChatGPT with search on). Claims made by 3 or 4 engines are the ones the comparison page must answer.</p></div>' +
+      '<div class="tablewrap"><table><thead><tr><th>Claim in the answers</th>' + EN.map(function (e) { return '<th style="text-align:center">' + e[1] + "</th>"; }).join("") + "<th>Engines agreeing</th></tr></thead><tbody>" +
       d.consensus.map(function (c) {
-        var n = ENGINES.filter(function (e) { return (c.counts[e[0]] || 0) >= 6; }).length;
-        return '<tr><td class="rl" style="min-width:260px">' + esc(c.claim) + "</td>" + ENGINES.map(function (e) { var v = c.counts[e[0]] || 0; return '<td class="heat num" style="background:rgba(var(--heat),' + (v / 10 * 0.32).toFixed(2) + ')">' + v + "</td>"; }).join("") +
-          "<td>" + (n >= 3 ? '<span class="pill p-holds">' : '<span class="pill p-unclear">') + n + " of 4</span></td></tr>";
+        var n = EN.filter(function (e) { return (c.counts[e[0]] || 0) >= 6; }).length;
+        return '<tr><td class="rl" style="min-width:260px">' + esc(c.claim) + "</td>" + EN.map(function (e) { var v = c.counts[e[0]] || 0; return '<td class="heat num" style="background:rgba(var(--heat),' + (v / 10 * 0.32).toFixed(2) + ')">' + v + "</td>"; }).join("") +
+          "<td>" + (n >= 3 ? '<span class="pill p-holds">' : '<span class="pill p-unclear">') + n + " of " + EN.length + "</span></td></tr>";
       }).join("") + "</tbody></table></div>" +
       '<div class="tabs" role="tablist" aria-label="Engine"><span class="tabslabel">Answers by engine</span>' +
-      ENGINES.map(function (e) { return '<button type="button" role="tab" data-tab="' + e[0] + '" aria-selected="' + (TAB === e[0]) + '">' + e[1] + "</button>"; }).join("") + "</div>" +
+      TABS.map(function (e) { return '<button type="button" role="tab" data-tab="' + e[0] + '" aria-selected="' + (TAB === e[0]) + '">' + e[1] + "</button>"; }).join("") + "</div>" +
       '<div id="answers"></div></section>';
 
     // 4 retest
@@ -244,17 +246,14 @@ tr:last-child td { border-bottom: 0; }
         var tp = Math.round(x.train / x.trainOf * 100), lp = Math.round(x.live / x.liveOf * 100);
         return '<tr><td class="rl" style="min-width:220px">' + esc(x.claim) + '</td><td style="min-width:150px"><span class="num">' + tp + '% agree</span><div class="bar" style="margin-top:6px"><i style="width:' + tp + '%;background:#a9bfe0"></i></div></td>' +
           '<td style="min-width:150px"><span class="num">' + lp + '% agree</span><div class="bar" style="margin-top:6px"><i style="width:' + lp + '%;background:var(--navy)"></i></div></td>' +
-          '<td style="min-width:240px">' + esc(x.check) + (x.url ? ' <a href="' + esc(x.url) + '" target="_blank" rel="noopener">Source</a>' : ' <span class="muted">[source to add]</span>') + "</td><td>" + pill(x.verdict) + "</td></tr>";
+          '<td style="min-width:240px">' + esc(x.check) + (x.url ? ' <a href="' + esc(x.url) + '" target="_blank" rel="noopener">Source</a>' : '') + "</td><td>" + pill(x.verdict) + "</td></tr>";
       }).join("") + "</tbody></table></div>" +
       '<p class="versus"><b>The gap to close:</b> ' + esc(d.gapNote) + "</p></section>";
 
     // how
     h += '<section class="sec"><div class="sechead"><h2 class="title">How this works, and what it doesn\'t cover yet</h2></div><ul class="how">' +
-      "<li>10 fixed prompts per engine, the same set for all four, asked logged out from the US. Prompts 1 and 2 swap the name order.</li>" +
-      "<li>Google = the AI Overview plus the top 3 organic results for the same query.</li>" +
-      "<li>Training data = Claude, ChatGPT and Gemini with web search off. Live = search on, plus Google.</li>" +
-      "<li>Primary source check = the vendor's own pricing page, docs or release notes, read by a person. An AI answer never counts as proof.</li>" +
-      "<li>Not covered yet: logged-in runs, non-US results, Perplexity and Copilot.</li></ul></section>";
+      (d.how || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") +
+      "</ul></section>";
 
     $("app").innerHTML = h;
     Array.prototype.forEach.call(document.querySelectorAll(".tabs button"), function (b) {
@@ -271,7 +270,7 @@ tr:last-child td { border-bottom: 0; }
       d.prompts.map(function (p, i) {
         var r = a.rows[i] || ["", "", ""];
         var cls = r[0] === "GetResponse" ? "you-t" : r[0] === d.rival ? "riv-t" : "muted";
-        return '<tr><td class="muted num">' + (i + 1) + '</td><td style="min-width:260px">' + esc(p) + '</td><td><span class="' + cls + '">' + esc(r[0]) + '</span></td><td style="min-width:240px">' + esc(r[1]) + '</td><td class="muted">' + esc(r[2] || "None") + "</td></tr>";
+        return '<tr><td class="muted num">' + (i + 1) + '</td><td style="min-width:260px">' + esc(p) + '</td><td><span class="' + cls + '">' + esc(r[0]) + '</span></td><td style="min-width:240px">' + (r[1] ? esc(r[1]) : '<span class="muted">Not logged</span>') + '</td><td class="muted">' + esc(r[2] || "—") + "</td></tr>";
       }).join("") + "</tbody></table></div>";
   }
 
