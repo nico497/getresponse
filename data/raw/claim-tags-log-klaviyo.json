@@ -1,0 +1,202 @@
+[
+ {
+  "reply": "Checking each claim against the answer:\n\nA: The answer says Shopify integration is particularly tight and Klaviyo is better for Shopify. Claimed.\nB: It says \"Budget can be favorable in some cases\", which is hedged and doesn't clearly say GetResponse is cheaper. Hedged and ambiguous, so I leave it ou",
+  "letters": "ACDEFG"
+ },
+ {
+  "reply": "Going through each claim against what the answer states or clearly implies:\n\n- A: The answer says Klaviyo has deep, plug-and-play Shopify syncing and presents it as stronger than GetResponse, so A counts.\n- B: The answer says GetResponse offers \"potentially better value.\" That is hedged and about va",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"E\", \"F\"]}",
+  "letters": "ABCEF"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: \"Tighter integrations with Shopify and many ecommerce tools\" \u2013 states Klaviyo has deeper Shopify integration. Yes.\n\nB: \"Potentially lower cost at small list sizes\" and \"broader, lower-cost marketing platform\" \u2013 GetResponse cheaper. Yes.\n\nC: \"Stronger segme",
+  "letters": "ABCDEFI"
+ },
+ {
+  "reply": "Going through the claims against the answer:\n\n- A: The answer mentions \"deep Shopify integrations\" as something Klaviyo offers, which implies deeper Shopify integration. Included.\n- B: The answer says GetResponse is cheaper. Included.\n- C: It mentions \"ecommerce segmentation, predictive analytics\" f",
+  "letters": "ABCE"
+ },
+ {
+  "reply": "{\"claims\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\"]}",
+  "letters": "ABCDEF"
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"F\"]}",
+  "letters": "ABCDF"
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: States Klaviyo has deep integrations especially Shopify, and GetResponse's are less native. Yes.\nB: GetResponse \"strong value for money,\" Klaviyo \"can get expensive as you scale.\" Implies GetResponse is cheaper. Yes.\nC: Best-in-class segmentation, predicte",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\"]}",
+  "letters": "ABCDEF"
+ },
+ {
+  "reply": "Evaluating each claim:\n\nA: Klaviyo integrates more deeply with Shopify than GetResponse. The answer says \"Deep native integrations\" and that Klaviyo is the \"default\" retention platform if on Shopify. It implies deeper integration, though mostly by integration count. Shopify is mentioned as the defau",
+  "letters": "ABCEF"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: The answer says Klaviyo is better \"especially on Shopify\" and cites \"Deep integrations\" for Shopify stores. This is stated.\n\nB: GetResponse is described as \"more affordable\" and as the better option for those who are \"price-sensitive.\" This is stated.\n\nC: ",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"E\", \"F\"]}",
+  "letters": "AEF"
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\"]}",
+  "letters": "ABCDEF"
+ },
+ {
+  "reply": "{\"claims\": [\"B\", \"C\", \"H\"]}",
+  "letters": "BCH"
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"E\", \"F\"]}",
+  "letters": "ABCEF"
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": []}",
+  "letters": ""
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: Klaviyo's Shopify integration is described as deep and widely used, though the answer never directly compares it with GetResponse. The pros/cons and \"tight Shopify/event data\" imply it is stronger. Included.\n\nB: GetResponse is described as offering automat",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"F\"]}",
+  "letters": "ABCDF"
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"I\"",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"C\", \"D\", \"E\", \"F\", \"I\"]}",
+  "letters": "ABCDEFI"
+ },
+ {
+  "reply": "{\"claims\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"H\"]}",
+  "letters": "ABCDEFH"
+ },
+ {
+  "reply": "Evaluating each claim against the answer:\n\nA: The answer says Klaviyo's Shopify and other store integrations sync data in real time, and that GetResponse's ecommerce features are less granular. It implies deeper integration, though it never compares the two directly on Shopify. Reasonably implied. I",
+  "letters": ""
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: The answer says Klaviyo has \"deep Shopify, WooCommerce, or BigCommerce integration\" for stores, which implies deeper integration than GetResponse. It's stated as a Klaviyo advantage, so it counts.\n\nB: The answer says GetResponse is typically cheaper. Count",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"G\",\"H\",\"I\"]}",
+  "letters": "ABCDEFGHI"
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: Yes. GetResponse's \"integrations with Shopify... are less deep,\" and Klaviyo syncs real-time data from Shopify.\nB: Yes. \"Cheaper at entry level.\"\nC: Yes. \"Powerful segmentation... predicted lifetime value,\" and GetResponse's \"deep purchase-behavior segment",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"I\"]}",
+  "letters": "ABCDEFI"
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"B\", \"C\", \"D\", \"E\", \"F\", \"G\", \"H\", \"I\"]}",
+  "letters": "BCDEFGHI"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: Yes. It says Klaviyo has \"unmatched Shopify integration\" and a deeper Shopify sync.\nB: Yes. It says GetResponse is cheaper.\nC: Yes. It cites predictive analytics and AI product recommendations as Klaviyo strengths.\nD: Yes. It mentions revenue tracking and ",
+  "letters": "ABCDEF"
+ },
+ {
+  "reply": "{\"claims\": [\"A\", \"B\", \"D\", \"E\", \"F\", \"H\"]}",
+  "letters": "ABDEFH"
+ },
+ {
+  "reply": "{\"claims\": [\"B\", \"D\", \"E\", \"H\"]}",
+  "letters": "BDEH"
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"B\",",
+  "letters": ""
+ },
+ {
+  "reply": "",
+  "letters": ""
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\n- A: The answer says Klaviyo \"integrates deeply with Shopify, WooCommerce, and Magento\" and recommends it for Shopify stores, while GetResponse's ecommerce is \"basic.\" This is implied, so A counts.\n- B: The answer says GetResponse is cheaper at scale and \"a t",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": [\"A\",\"B\",\"C\",\"D\",\"E\",\"F\",\"G\",\"H\",\"I\"]}",
+  "letters": "ABCDEFGHI"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: The answer says Klaviyo is built around store data for Shopify and WooCommerce, but it never compares Shopify integration depth with GetResponse. This is weak, though \"ecommerce-first architecture... platforms like Shopify\" arguably implies it. I'll leave ",
+  "letters": "BCDEFI"
+ },
+ {
+  "reply": "Going through each claim against the answer:\n\n- A: The answer says Klaviyo is \"built heavily around store behavior, customer insights, and platforms like Shopify, WooCommerce, and Magento.\" It never compares Shopify integration depth with GetResponse, though \"deeper ecommerce focus\" is loosely impli",
+  "letters": "BCEFI"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: The answer says Klaviyo is better for Shopify and pulls detailed Shopify purchase history and real-time events, while GetResponse only \"supports\" the integration. This implies deeper integration. Yes.\n\nB: GetResponse is described as typically more affordab",
+  "letters": "ABCDEF"
+ },
+ {
+  "reply": "{\"claims\": [\"B\", \"C\", \"D\", \"E\", \"F\"]}",
+  "letters": "BCDEF"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\n- A: Not mentioned.\n- B: Stated clearly. GetResponse is cheaper.\n- C: Not mentioned.\n- D: Not mentioned.\n- E: Not mentioned.\n- F: The answer says GetResponse includes broader marketing tools such as landing pages, funnels, and webinars in its tiers. This impl",
+  "letters": "BF"
+ },
+ {
+  "reply": "Going through each claim against the answer:\n\n- A: The answer says Klaviyo has \"deeper store data\" and uses \"real-time store behavior and purchase history\". That implies deeper store integration, though Shopify is never named. \"Dedicated e-commerce stores\" and deeper store data clearly imply a deepe",
+  "letters": "ABCEFHI"
+ },
+ {
+  "reply": "Checking each claim against the answer:\n\nA: Klaviyo integrates more deeply with Shopify. The answer mentions \"real-time store data\" but never names Shopify, and it only implies a general store integration. This is not clearly stated, so no.\n\nB: GetResponse is cheaper. It cites \"lower entry pricing\",",
+  "letters": ""
+ },
+ {
+  "reply": "{\"claims\": []}",
+  "letters": ""
+ },
+ {
+  "reply": "Going through each claim against the text:\n\nA: \"strong Shopify integrations\" for Klaviyo, plus \"Shallower e-commerce depth\" for GetResponse. This implies Klaviyo integrates more deeply, so A is likely counted.\n\nB: GetResponse is \"budget-friendly\", \"accessible pricing\", and Klaviyo has \"Higher cost a",
+  "letters": "ABCDEFI"
+ },
+ {
+  "reply": "Going through the claims against what the answer states or clearly implies:\n\n- A: The answer says to stay on Klaviyo for \"deep store integrations\", which implies deeper Shopify integration. It never names Shopify, but the e-commerce store integration point is clearly implied, so I count it.\n- B: Get",
+  "letters": "ABCEFI"
+ }
+]

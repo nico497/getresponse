@@ -1,11 +1,11 @@
 {
  "claude_off": {
   "1": "",
-  "2": "",
-  "3": "ABCDEFGH",
+  "2": "ABCDEFI",
+  "3": "ABCDEFH",
   "4": "",
   "5": "",
-  "6": "",
+  "6": "ABCDEFGHI",
   "7": "",
   "8": "",
   "9": "",
@@ -13,15 +13,15 @@
  },
  "claude_on": {
   "1": "",
-  "2": "",
+  "2": "BCDEFGHI",
   "3": "ABCDEF",
-  "4": "",
-  "5": "",
+  "4": "ABDEFH",
+  "5": "BDEH",
   "6": "",
   "7": "",
   "8": "",
   "9": "",
-  "10": ""
+  "10": "ABCDEFGHI"
  },
  "gemini": {
   "A": 7,
@@ -46,28 +46,28 @@
   "I": 0
  },
  "chatgpt_off": {
-  "1": "",
+  "1": "ACDEFG",
   "2": "",
-  "3": "",
-  "4": "",
-  "5": "",
-  "6": "",
-  "7": "",
+  "3": "ABCEF",
+  "4": "ABCDEFI",
+  "5": "ABCE",
+  "6": "ABCDEF",
+  "7": "ABCDF",
   "8": "",
   "9": "",
-  "10": ""
+  "10": "ABCDEF"
  },
  "chatgpt_on": {
-  "1": "",
+  "1": "ABCEF",
   "2": "",
   "3": "AEF",
-  "4": "",
-  "5": "",
-  "6": "",
+  "4": "ABCDEF",
+  "5": "BCH",
+  "6": "ABCEF",
   "7": "",
   "8": "",
   "9": "",
-  "10": ""
+  "10": "ABCDF"
  },
  "_claims": {
   "A": "Klaviyo integrates more deeply with Shopify than GetResponse",
@@ -83,15 +83,15 @@
  "_method": "Claude classifier (claude-sonnet-5-5)",
  "google_off": {},
  "google_on": {
-  "1": "",
-  "2": "",
-  "3": "",
-  "4": "",
-  "5": "",
-  "6": "",
+  "1": "BCDEFI",
+  "2": "BCEFI",
+  "3": "ABCDEF",
+  "4": "BCDEF",
+  "5": "BF",
+  "6": "ABCEFHI",
   "7": "",
   "8": "",
-  "9": "",
-  "10": ""
+  "9": "ABCDEFI",
+  "10": "ABCEFI"
  }
 }
