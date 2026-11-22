@@ -1,5 +1,7 @@
 # GetResponse · Head-to-Head Radar
 
+**Live:** https://nico497.github.io/getresponse/ (add `#klaviyo`, `#mailchimp`, `#omnisend` or `#brevo`)
+
 Static page (GitHub Pages, served from `/docs`) comparing what AI tools tell online store owners about GetResponse vs one competitor at a time.
 
 **Current state:** test build with sample data. No API calls. Only the Klaviyo matchup is filled in.
