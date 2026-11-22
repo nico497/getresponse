@@ -162,10 +162,10 @@
    "E": true,
    "F": true,
    "G": true,
-   "H": false,
+   "H": true,
    "I": false
   },
-  "letters": "ABCDEFG"
+  "letters": "ABCDEFGH"
  },
  {
   "input": {
@@ -383,13 +383,13 @@
    "B": false,
    "C": true,
    "D": false,
-   "E": false,
+   "E": true,
    "F": true,
    "G": false,
    "H": false,
    "I": false
   },
-  "letters": "ACF"
+  "letters": "ACEF"
  },
  {
   "input": {
@@ -428,10 +428,10 @@
    "E": true,
    "F": true,
    "G": true,
-   "H": true,
+   "H": false,
    "I": true
   },
-  "letters": "ABCDEFGHI"
+  "letters": "ABCDEFGI"
  },
  {
   "input": {
@@ -441,11 +441,11 @@
    "D": true,
    "E": true,
    "F": true,
-   "G": true,
+   "G": false,
    "H": true,
    "I": true
   },
-  "letters": "BCDEFGHI"
+  "letters": "BCDEFHI"
  },
  {
   "input": {
@@ -564,42 +564,14 @@
    "A": true,
    "B": true,
    "C": true,
-   "D": true,
-   "E": true,
-   "F": true,
-   "G": false,
-   "H": false,
-   "I": false
-  },
-  "letters": "ABCDEF"
- },
- {
-  "input": {
-   "A": true,
-   "B": true,
-   "C": true,
-   "D": true,
-   "E": true,
-   "F": true,
-   "G": false,
-   "H": false,
-   "I": false
-  },
-  "letters": "ABCDEF"
- },
- {
-  "input": {
-   "A": true,
-   "B": true,
-   "C": true,
    "D": false,
    "E": true,
    "F": true,
    "G": false,
    "H": false,
-   "I": true
+   "I": false
   },
-  "letters": "ABCEFI"
+  "letters": "ABCEF"
  },
  {
   "input": {
@@ -617,17 +589,31 @@
  },
  {
   "input": {
-   "A": false,
+   "A": true,
+   "B": true,
+   "C": true,
+   "D": false,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": false
+  },
+  "letters": "ABCEF"
+ },
+ {
+  "input": {
+   "A": true,
    "B": true,
    "C": false,
-   "D": false,
-   "E": false,
-   "F": false,
+   "D": true,
+   "E": true,
+   "F": true,
    "G": false,
    "H": false,
    "I": false
   },
-  "letters": "B"
+  "letters": "ABDEF"
  },
  {
   "input": {
@@ -648,6 +634,20 @@
    "A": true,
    "B": true,
    "C": true,
+   "D": true,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": true
+  },
+  "letters": "ABCDEFI"
+ },
+ {
+  "input": {
+   "A": true,
+   "B": false,
+   "C": true,
    "D": false,
    "E": true,
    "F": true,
@@ -655,7 +655,7 @@
    "H": false,
    "I": true
   },
-  "letters": "ABCEFI"
+  "letters": "ACEFI"
  },
  {
   "input": {
@@ -676,14 +676,14 @@
    "A": true,
    "B": true,
    "C": true,
-   "D": false,
+   "D": true,
    "E": false,
    "F": true,
    "G": false,
    "H": false,
    "I": true
   },
-  "letters": "ABCFI"
+  "letters": "ABCDFI"
  },
  {
   "input": {
@@ -723,9 +723,9 @@
    "F": true,
    "G": false,
    "H": false,
-   "I": true
+   "I": false
   },
-  "letters": "ABCEFI"
+  "letters": "ABCEF"
  },
  {
   "input": {
@@ -740,6 +740,76 @@
    "I": false
   },
   "letters": "ABCDEF"
+ },
+ {
+  "input": {
+   "A": true,
+   "B": true,
+   "C": false,
+   "D": true,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": false
+  },
+  "letters": "ABDEF"
+ },
+ {
+  "input": {
+   "A": true,
+   "B": true,
+   "C": true,
+   "D": false,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": false
+  },
+  "letters": "ABCEF"
+ },
+ {
+  "input": {
+   "A": true,
+   "B": true,
+   "C": true,
+   "D": false,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": false
+  },
+  "letters": "ABCEF"
+ },
+ {
+  "input": {
+   "A": true,
+   "B": true,
+   "C": true,
+   "D": false,
+   "E": true,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": true
+  },
+  "letters": "ABCEFI"
+ },
+ {
+  "input": {
+   "A": false,
+   "B": true,
+   "C": false,
+   "D": false,
+   "E": false,
+   "F": true,
+   "G": false,
+   "H": false,
+   "I": false
+  },
+  "letters": "BF"
  },
  {
   "input": {
@@ -761,83 +831,13 @@
    "B": true,
    "C": true,
    "D": true,
-   "E": false,
-   "F": false,
-   "G": false,
-   "H": false,
-   "I": false
-  },
-  "letters": "ABCD"
- },
- {
-  "input": {
-   "A": true,
-   "B": false,
-   "C": false,
-   "D": false,
    "E": true,
    "F": true,
    "G": false,
    "H": false,
    "I": false
   },
-  "letters": "AEF"
- },
- {
-  "input": {
-   "A": true,
-   "B": true,
-   "C": true,
-   "D": false,
-   "E": true,
-   "F": true,
-   "G": false,
-   "H": false,
-   "I": true
-  },
-  "letters": "ABCEFI"
- },
- {
-  "input": {
-   "A": false,
-   "B": false,
-   "C": false,
-   "D": false,
-   "E": false,
-   "F": true,
-   "G": false,
-   "H": false,
-   "I": false
-  },
-  "letters": "F"
- },
- {
-  "input": {
-   "A": true,
-   "B": true,
-   "C": true,
-   "D": true,
-   "E": true,
-   "F": true,
-   "G": true,
-   "H": false,
-   "I": true
-  },
-  "letters": "ABCDEFGI"
- },
- {
-  "input": {
-   "A": true,
-   "B": true,
-   "C": true,
-   "D": false,
-   "E": true,
-   "F": true,
-   "G": false,
-   "H": false,
-   "I": false
-  },
-  "letters": "ABCEF"
+  "letters": "ABCDEF"
  },
  {
   "input": {

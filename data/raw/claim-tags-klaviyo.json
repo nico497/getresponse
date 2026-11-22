@@ -7,13 +7,13 @@
   "5": "ABCDFH",
   "6": "ABCDEFHI",
   "7": "ABCDEFHI",
-  "8": "ACF",
+  "8": "ACEF",
   "9": "ABCDEFHI",
   "10": "ABCDEFI"
  },
  "claude_on": {
-  "1": "ABCDEFGHI",
-  "2": "BCDEFGHI",
+  "1": "ABCDEFGI",
+  "2": "BCDEFHI",
   "3": "ABCDEF",
   "4": "ABDEFH",
   "5": "ABDEH",
@@ -59,7 +59,7 @@
  },
  "chatgpt_on": {
   "1": "BCEF",
-  "2": "ABCDEFG",
+  "2": "ABCDEFGH",
   "3": "AEF",
   "4": "ABCDEF",
   "5": "BCH",
@@ -95,27 +95,27 @@
   "10": "ABCEFI"
  },
  "gemini_off": {
-  "1": "ABCDEF",
-  "2": "ABCDEF",
-  "3": "ABCEFI",
-  "4": "ABCEF",
-  "5": "B",
-  "6": "ABCEF",
-  "7": "ABCEFI",
+  "1": "ABCEF",
+  "2": "ABCEF",
+  "3": "ABCEF",
+  "4": "ABDEF",
+  "5": "ABCEF",
+  "6": "ABCDEFI",
+  "7": "ACEFI",
   "8": "F",
-  "9": "ABCFI",
+  "9": "ABCDFI",
   "10": "ABCEF"
  },
  "gemini_on": {
   "1": "ABCDEF",
-  "2": "ABCEFI",
+  "2": "ABCEF",
   "3": "ABCDEF",
-  "4": "ABCDEFI",
-  "5": "ABCD",
-  "6": "AEF",
+  "4": "ABDEF",
+  "5": "ABCEF",
+  "6": "ABCEF",
   "7": "ABCEFI",
-  "8": "F",
-  "9": "ABCDEFGI",
-  "10": "ABCEF"
+  "8": "BF",
+  "9": "ABCDEFI",
+  "10": "ABCDEF"
  }
 }
