@@ -234,7 +234,7 @@ tr:last-child td { border-bottom: 0; }
         var n = EN.filter(function (e) { return (c.counts[e[0]] || 0) >= 6; }).length;
         return '<tr><td class="rl" style="min-width:260px">' + esc(c.claim) + "</td>" + EN.map(function (e) { var v = c.counts[e[0]] || 0; return '<td class="heat num" style="background:rgba(var(--heat),' + (v / 10 * 0.32).toFixed(2) + ')">' + v + "</td>"; }).join("") +
           "<td>" + (n >= 3 ? '<span class="pill p-holds">' : '<span class="pill p-unclear">') + n + " of " + EN.length + "</span></td></tr>";
-      }).join("") + "</tbody></table></div>" +
+      }).join("") + "</tbody></table></div>" + (d.consensusNote ? '<p class="note">' + esc(d.consensusNote) + "</p>" : "") +
       '<div class="tabs" role="tablist" aria-label="Engine"><span class="tabslabel">Answers by engine</span>' +
       TABS.map(function (e) { return '<button type="button" role="tab" data-tab="' + e[0] + '" aria-selected="' + (TAB === e[0]) + '">' + e[1] + "</button>"; }).join("") + "</div>" +
       '<div id="answers"></div></section>';

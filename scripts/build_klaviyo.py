@@ -1,95 +1,130 @@
-import json,re
-from urllib.parse import urlparse
-T=json.load(open('data/raw/claim-tags-klaviyo.json'))
-raw=json.load(open('data/raw/chatgpt-klaviyo.json'))
-R="Klaviyo"; G="GetResponse"; N="None"
-SHOP="https://apps.shopify.com/getresponse-official"; PRICE="https://www.getresponse.com/pricing"
-CL={'A':"Klaviyo integrates more deeply with Shopify",'B':"GetResponse is cheaper",'C':"Klaviyo segments better and predicts (CLV, churn)",
-'D':"Klaviyo has better revenue reporting",'E':"Klaviyo's e-commerce flows go deeper",'F':"GetResponse does more beyond email",
-'G':"Klaviyo has stronger SMS",'H':"GetResponse locks abandoned cart behind higher plans",'I':"GetResponse is easier to set up"}
-live=lambda k: T['claude_on'][k]+T['chatgpt_on'][k]+T['gemini'][k]+T['google'][k]
-train=lambda k: T['claude_off'][k]+T['chatgpt_off'][k]
-rt=lambda k: T['claude_on'][k]+T['chatgpt_on'][k]+T['google'][k]
+"""Build docs/data/klaviyo.json from data/raw/* (answers + claim tags) and the primary-source checks below.
 
-def cg(mode):
-    rows=[]
-    for r in sorted([x for x in raw['runs'] if x['search']==mode],key=lambda x:x['n']):
-        p=re.search(r'PICK:\s*(.+)',r['text']); q=re.search(r'REASON:\s*(.+)',r['text'])
-        doms=sorted({urlparse(s['url'] if isinstance(s,dict) else s).netloc.replace('www.','') for s in r.get('sources',[])})
-        doms=[d for d in doms if 'cloudfront' not in d and 'ctfassets' not in d]
-        rows.append([p.group(1).strip(), q.group(1).strip().rstrip('.'), ', '.join(doms) if mode=='on' else 'Search off'])
-    return rows
-def simple(picks,reasons={},src=lambda i:''):
-    return [[picks.get(i,R),reasons.get(i,''),src(i)] for i in range(1,11)]
-gem_src={1,2,4,5,6,7,8}
-org1={1,2,3,7,10}
-answers={
- 'claude_off':{'note':"Clean Claude helper, web search off (training data only). Picks and claim tags were logged; per-answer reasons weren't. The helper once mentioned GetResponse as a client, so slight context bleed is possible.",
-   'rows':simple({8:N},{},lambda i:'Search off')},
- 'claude_on':{'note':"Same Claude helper with web search on. Picks and claim tags logged; per-answer reasons and sources weren't.",
-   'rows':simple({5:N,8:N},{})},
- 'chatgpt_off':{'note':"OpenAI API (gpt-5.2), web search off, run from GitHub Actions. Reasons are ChatGPT's own one-line summary.",'rows':cg('off')},
- 'chatgpt_on':{'note':"gpt-5.2 with web search forced on. It cited getresponse.com in 9 of 10 answers and still picked Klaviyo in 9.",'rows':cg('on')},
- 'gemini':{'note':"Gemini web app, logged out, US VPN. Gemini decides when to search: sources showed on 7 of 10. Picks logged; reasons only where noted.",
-   'rows':simple({5:G,8:N},{5:"Answered yes: cheaper",8:"GetResponse not mentioned"},lambda i:'Shown' if i in gem_src else 'None shown')},
- 'google':{'note':"Google US (gl=us, hl=en, pws=0), logged out, VPN. Pick = the AI Overview's pick; None = no pick or a split answer. Sources column shows where getresponse.com's own comparison page ranks.",
-   'rows':simple({1:N,2:N,4:N,5:G,8:N,9:N,10:N},{5:"Answered yes: cheaper",8:"GetResponse not in the AI Overview"},
-     lambda i:'getresponse.com ranks #1 organic' if i in org1 else '')},
-}
-def nopick_check():
-    for k,v in answers.items(): print(k,[r[0] for r in v['rows']].count(R),[r[0] for r in v['rows']].count(G))
-nopick_check()
-cons=sorted('ABCDEFGHI',key=lambda k:-live(k))
-d={
-"rival":R,"sample":False,"collected":"22 Nov 2026","market":"US (VPN), logged out",
-"headline":{"lead":"AI picks Klaviyo in 47 of 60 answers. Its revenue-reporting and automation reasons are out of date. Address these first on the comparison page.",
- "points":[
-  {"text":"Klaviyo is picked in 47 of 60 answers. GetResponse wins 3, all on price or all-in-one value.","chips":["6 runs × 10 prompts","US, logged out"]},
-  {"text":"“Klaviyo has better revenue reporting” comes from training data: 18 of 20 search-off answers say it, 13 of 30 live ones. GetResponse now reports revenue per message and per workflow.","chips":["Outdated","Revenue attribution"],"youChip":0},
-  {"text":"Price is the main reason AI ever picks GetResponse, but it only holds at bigger lists. At 1k contacts the plan with abandoned cart costs $59 against Klaviyo's $30.","chips":["30 of 40 live answers","Partly holds"]}]},
-"priority":[
- {"feature":"E-commerce automation flows","need":5,"ai":f"Klaviyo deeper ({live('E')}/40)","verdict":"partly","reason":"Top store need and a widely repeated weakness. Browse abandonment and price drop campaigns are new (Apr 2026) and answers miss them. Back-in-stock is still missing, so say so."},
- {"feature":"Revenue attribution","need":4,"ai":f"Klaviyo better ({live('D')}/40)","verdict":"outdated","reason":"The clearest training-data gap: 90% of search-off answers make the claim, 43% of live ones. GetResponse now reports revenue per message and workflow (Marketer and up). Easy win."},
- {"feature":"Price by list size","need":5,"ai":f"GetResponse cheaper ({live('B')}/40)","verdict":"partly","reason":"The main reason AI picks GetResponse at all. True at 10k contacts, not at 1k on the plan stores need. Show a list-size table so the claim survives a check."},
- {"feature":"Shopify integration","need":5,"ai":f"Klaviyo deeper ({live('A')}/40)","verdict":"holds","reason":"High need, and it holds: the Shopify app has 1 review rated 1.0. Cover it honestly. This is a product fix more than a page fix."},
- {"feature":"Abandoned cart by plan","need":4,"ai":f"Locked to higher plans ({live('H')}/40)","verdict":"holds","reason":"Live search adds this objection: 4 of 20 search-off answers raise it, 10 of 30 live ones. Starter has no abandoned cart. Name the plan that does, up front."},
- {"feature":"Segmentation and predictions","need":4,"ai":f"Klaviyo stronger ({live('C')}/40)","verdict":"holds","reason":"Repeated almost everywhere and true: AI recommendations are Enterprise only; no predictive CLV or churn found. Don't contest it. Narrow it."},
- {"feature":"SMS","need":3,"ai":f"Klaviyo stronger ({live('G')}/40)","verdict":"holds","reason":"SMS is Enterprise only (MAX). Live answers raise it less than training data does (33% vs 75%), so one honest line is enough."},
- {"feature":"Ease of setup","need":3,"ai":f"GetResponse easier ({live('I')}/40)","verdict":"unclear","reason":"Few answers make it and no primary source settles it. Don't lead with it."},
- {"feature":"Beyond email (webinars, courses, sites)","need":2,"ai":f"GetResponse does more ({live('F')}/40)","verdict":"holds","reason":"Already credited and true (Creator plan). Low store need, so it goes last."}],
-"scoreboard":[
- {"engine":"Claude","mode":"search off","gr":0,"rival":9,"none":1,"split":False,"note":"No pick on “Klaviyo alternatives”"},
- {"engine":"Claude","mode":"search on","gr":0,"rival":8,"none":2,"split":False,"note":"No pick on price (Q5) or alternatives (Q8)"},
- {"engine":"ChatGPT","mode":"search off · gpt-5.2","gr":0,"rival":10,"none":0,"split":False,"note":"Klaviyo in every answer"},
- {"engine":"ChatGPT","mode":"search on · gpt-5.2","gr":1,"rival":9,"none":0,"split":False,"note":"GetResponse once: all-in-one value (Q8)"},
- {"engine":"Gemini","mode":"web app · searches when it decides","gr":1,"rival":8,"none":1,"split":False,"note":"GetResponse on price (Q5); left out of alternatives (Q8)"},
- {"engine":"Google","mode":"AI Overview","gr":1,"rival":3,"none":6,"split":True,"note":"6 of 10 AI Overviews don't pick"}],
-"strengths":{"gr":[{"label":"Beyond email (webinars, courses, sites)","n":live('F')},{"label":"Price","n":live('B')},{"label":"Ease of setup","n":live('I')}],
- "rival":[{"label":"Segmentation and predictions","n":live('C')},{"label":"E-commerce flows","n":live('E')},{"label":"Revenue reporting","n":live('D')},{"label":"Shopify integration","n":live('A')},{"label":"SMS","n":live('G')}]},
-"engines":[["claude","Claude"],["chatgpt","ChatGPT"],["gemini","Gemini"],["google","Google"]],
-"consensus":[{"claim":CL[k],"counts":{"claude":T['claude_on'][k],"chatgpt":T['chatgpt_on'][k],"gemini":T['gemini'][k],"google":T['google'][k]}} for k in cons],
-"prompts":["Which is better for an online store, GetResponse or Klaviyo?","Which is better for an online store, Klaviyo or GetResponse?","GetResponse vs Klaviyo for Shopify","Best email marketing for a small ecommerce store: GetResponse or Klaviyo?","Is GetResponse cheaper than Klaviyo?","GetResponse vs Klaviyo for abandoned cart emails","GetResponse vs Klaviyo automation","Klaviyo alternatives for ecommerce","GetResponse vs Klaviyo pros and cons","Should I switch from Klaviyo to GetResponse?"],
-"tabs":[["claude_off","Claude · off"],["claude_on","Claude · on"],["chatgpt_off","ChatGPT · off"],["chatgpt_on","ChatGPT · on"],["gemini","Gemini"],["google","Google"]],
-"answers":answers,
-"retest":[
- {"claim":CL['D'],"k":"D","check":"Revenue per message and per workflow, on Marketer and up (updated 15 Apr 2026).","url":"https://www.getresponse.com/blog/email-revenue-attribution","verdict":"outdated"},
- {"claim":CL['E'],"k":"E","check":"Abandoned cart, browse abandonment (“products your shoppers considered”) and price drop campaigns exist (Apr 2026). No back-in-stock found.","url":"https://www.getresponse.com/blog/price-drop-email","verdict":"partly"},
- {"claim":CL['B'],"k":"B","check":"Marketer, the first plan with abandoned cart: $59/mo at 1k vs Klaviyo $30. At 10k: €99 vs Klaviyo $150. Klaviyo prices are from third-party sources.","url":PRICE,"verdict":"partly"},
- {"claim":CL['A'],"k":"A","check":"GetResponse's Shopify app: 1 review, rated 1.0.","url":SHOP,"verdict":"holds"},
- {"claim":CL['H'],"k":"H","check":"Starter has no abandoned cart; it starts at Marketer.","url":PRICE,"verdict":"holds"},
- {"claim":CL['C'],"k":"C","check":"AI recommendations are Enterprise only. No predictive CLV or churn found.","url":PRICE,"verdict":"holds"},
- {"claim":CL['G'],"k":"G","check":"SMS only in GetResponse MAX (Enterprise, from $1,099/mo per the Shopify listing).","url":SHOP,"verdict":"holds"},
- {"claim":CL['F'],"k":"F","check":"Creator plan includes webinars, courses and a website builder.","url":PRICE,"verdict":"holds"},
- {"claim":CL['I'],"k":"I","check":"No primary source settles it.","url":"","verdict":"unclear"}],
-"gapNote":"Live search barely moves the pick: Klaviyo 19 of 20 with search off, 17 of 20 with it on (Claude and ChatGPT). ChatGPT cited getresponse.com in 9 of 10 live answers and still credited Klaviyo with better revenue attribution. The page needs plain, dated statements on revenue attribution and the new flows, so live engines have something to quote. GetResponse's own comparison page already ranks #1 on Google for 5 of 10 prompts, yet AI Overviews pick it once and leave it out of “Klaviyo alternatives”.",
-"how":["10 fixed prompts, the same for every engine, asked from the US (VPN), logged out. Prompts 1 and 2 swap the name order; every engine answered the same both ways.",
- "Claude: a clean helper, search off then on. ChatGPT: OpenAI API (gpt-5.2), search off then forced on.",
- "Gemini: web app. It decides when to search, so it counts as live only. Google: the AI Overview, plus where getresponse.com ranks.",
- "Training data = Claude + ChatGPT with search off (20 answers). Live = Claude + ChatGPT with search on, plus Google (30). Gemini is left out of this table.",
- "Claims are tagged per answer. ChatGPT tags are keyword matches, so allow ±1–2 per claim.",
- "Primary sources = GetResponse's pricing page, blog, help docs and Shopify listing. Klaviyo prices come from third-party sources.",
- "Not covered yet: logged-in runs, non-US results, Perplexity and Copilot."]}
-for x in d['retest']:
-    k=x.pop('k'); x.update(train=train(k),trainOf=20,live=rt(k),liveOf=30)
-json.dump(d,open('docs/data/klaviyo.json','w'),ensure_ascii=False,indent=1)
-print('ok')
+Engines: Claude and ChatGPT via API (search off/on), Google AI Overview (browser), Gemini (earlier app run
+until the API run is billed). Editorial text (priority reasons, headline) is written here and uses the counts.
+"""
+import json, re, os
+from urllib.parse import urlparse
+R = "Klaviyo"; G = "GetResponse"; N = "None"
+raw = lambda e: json.load(open(f"data/raw/{e}-klaviyo.json")) if os.path.exists(f"data/raw/{e}-klaviyo.json") else None
+T = json.load(open("data/raw/claim-tags-klaviyo.json"))
+GEM_APP = {"A": 7, "B": 9, "C": 8, "D": 7, "E": 6, "F": 8, "G": 4, "H": 3, "I": 2}  # earlier Gemini app run, hand-tagged
+gem_api = raw("gemini")
+
+def cnt(key, L):
+    if key == "gemini" and not gem_api: return GEM_APP[L]
+    if key == "gemini": key = "gemini_on"
+    return sum(L in s for s in T.get(key, {}).values())
+LIVE4 = ["claude_on", "chatgpt_on", "gemini", "google_on"]
+train = lambda L: cnt("claude_off", L) + cnt("chatgpt_off", L)
+live30 = lambda L: cnt("claude_on", L) + cnt("chatgpt_on", L) + cnt("google_on", L)
+live40 = lambda L: sum(cnt(k, L) for k in LIVE4)
+
+def rows(e, mode):
+    d = raw(e); out = []
+    for r in sorted([x for x in d["runs"] if x["search"] == mode], key=lambda x: x["n"]):
+        p = re.search(r"PICK:\s*\**\s*([A-Za-z]+)", r["text"]); q = re.search(r"REASON:\s*\**\s*([^\n]+)", r["text"])
+        pick = p.group(1) if p else N
+        if e == "google": src = "Organic top 3: " + r.get("organic_top3", "")
+        elif mode == "off": src = "Search off"
+        else:
+            doms = sorted({urlparse(u).netloc.replace("www.", "") for u in r["sources"]} - {""})
+            doms = [x for x in doms if "cloudfront" not in x and "ctfassets" not in x]
+            src = ", ".join(doms) or "None cited"
+        out.append([pick, q.group(1).strip().rstrip(".") if q else "", src])
+    return out
+
+def tally(rs): return {k: sum(r[0] == k for r in rs) for k in (G, R, N)}
+
+ans = {"claude_off": rows("claude", "off"), "claude_on": rows("claude", "on"),
+       "chatgpt_off": rows("chatgpt", "off"), "chatgpt_on": rows("chatgpt", "on"), "google": rows("google", "on")}
+ans["gemini"] = rows("gemini", "on") if gem_api else [[N if i == 8 else G if i == 5 else R,
+    {5: "Answered yes: cheaper", 8: "GetResponse not mentioned"}.get(i, ""), "Shown" if i in {1, 2, 4, 5, 6, 7, 8} else "None shown"] for i in range(1, 11)]
+P = {k: tally(v) for k, v in ans.items()}
+allp = {k: sum(P[e][k] for e in P) for k in (G, R, N)}
+cite_gr = lambda e: sum(any("getresponse.com" in u for u in r["sources"]) for r in raw(e)["runs"] if r["search"] == "on")
+attr = lambda e, m: sum(bool(re.search("attribut", r[1], re.I)) for r in rows(e, m))
+cl_model = raw("claude")["model"]; cg_model = raw("chatgpt")["model"]
+
+CL = {"A": "Klaviyo integrates more deeply with Shopify", "B": "GetResponse is cheaper", "C": "Klaviyo segments better and predicts (CLV, churn)",
+      "D": "Klaviyo has better revenue reporting", "E": "Klaviyo's e-commerce flows go deeper", "F": "GetResponse does more beyond email",
+      "G": "Klaviyo has stronger SMS", "H": "GetResponse locks abandoned cart behind higher plans", "I": "GetResponse is easier to set up"}
+SHOP = "https://apps.shopify.com/getresponse-official"; PRICE = "https://www.getresponse.com/pricing"
+pct = lambda a, b: round(a / b * 100)
+gem_note = "" if gem_api else " Gemini column: earlier app run, hand-tagged; API rerun pending."
+
+d = {
+"rival": R, "sample": False, "collected": "22 Nov 2026", "market": "US (VPN), logged out",
+"headline": {"lead": f"AI picks Klaviyo in {allp[R]} of 60 answers. Its main live reason, revenue attribution, is out of date. Address it first on the comparison page.",
+ "points": [
+  {"text": f"Klaviyo is picked in {allp[R]} of 60 answers. GetResponse wins {allp[G]}, all on price or all-in-one value.", "chips": ["6 runs × 10 prompts", "US, logged out"]},
+  {"text": f"Search makes it worse, not better: Claude gives revenue attribution as a reason in {attr('claude','on')} of 10 live answers, {attr('claude','off')} of 10 offline. GetResponse now reports revenue per message and per workflow.", "chips": ["Outdated", "Revenue attribution"], "youChip": 0},
+  {"text": "Price is the main reason AI ever picks GetResponse, but it only holds at bigger lists. At 1k contacts the plan with abandoned cart costs $59 against Klaviyo's $30.", "chips": [f"{live40('B')} of 40 live answers", "Partly holds"]}]},
+"priority": [
+ {"feature": "Revenue attribution", "need": 4, "ai": f"Klaviyo better ({live40('D')}/40)", "verdict": "outdated",
+  "reason": f"Outdated, and live search spreads it: Claude names it in {attr('claude','on')} of 10 live reasons. GetResponse reports revenue per message and workflow (Marketer and up). Highest-leverage fix."},
+ {"feature": "E-commerce automation flows", "need": 5, "ai": f"Klaviyo deeper ({live40('E')}/40)", "verdict": "partly",
+  "reason": "Top store need and repeated almost everywhere. Browse abandonment and price drop campaigns are new (Apr 2026) and answers miss them. Back-in-stock is still missing, so say so."},
+ {"feature": "Price by list size", "need": 5, "ai": f"GetResponse cheaper ({live40('B')}/40)", "verdict": "partly",
+  "reason": "The main reason AI picks GetResponse at all. True at 10k contacts, not at 1k on the plan stores need. Show a list-size table by plan so the claim survives a check."},
+ {"feature": "Shopify integration", "need": 5, "ai": f"Klaviyo deeper ({live40('A')}/40)", "verdict": "holds",
+  "reason": "High need, and it holds: the Shopify app has 1 review rated 1.0. Cover it honestly. This is a product fix more than a page fix."},
+ {"feature": "Abandoned cart by plan", "need": 4, "ai": f"Locked to higher plans ({live40('H')}/40)", "verdict": "holds",
+  "reason": f"Live search adds this objection: {train('H')} of 20 search-off answers raise it, {live30('H')} of 30 live ones. Starter has no abandoned cart. Name the plan that does, up front."},
+ {"feature": "Segmentation and predictions", "need": 4, "ai": f"Klaviyo stronger ({live40('C')}/40)", "verdict": "holds",
+  "reason": "Repeated almost everywhere and true: AI recommendations are Enterprise only; no predictive CLV or churn found. Don't contest it. Narrow it."},
+ {"feature": "Ease of setup", "need": 3, "ai": f"GetResponse easier ({live40('I')}/40)", "verdict": "unclear",
+  "reason": "Google's AI Overviews credit it more than the chatbots do. No primary source settles it. Don't lead with it."},
+ {"feature": "SMS", "need": 3, "ai": f"Klaviyo stronger ({live40('G')}/40)", "verdict": "holds",
+  "reason": "SMS is Enterprise only (MAX), but few answers raise it. One honest line is enough."},
+ {"feature": "Beyond email (webinars, courses, sites)", "need": 2, "ai": f"GetResponse does more ({live40('F')}/40)", "verdict": "holds",
+  "reason": "Already credited and true (Creator plan). Low store need, so it goes last."}],
+"scoreboard": [
+ {"engine": "Claude", "mode": f"search off · {cl_model}", "gr": P["claude_off"][G], "rival": P["claude_off"][R], "none": P["claude_off"][N], "split": False, "note": "Klaviyo in every answer"},
+ {"engine": "Claude", "mode": f"search on · {cl_model}", "gr": P["claude_on"][G], "rival": P["claude_on"][R], "none": P["claude_on"][N], "split": False, "note": "Q8 suggests Omnisend, not GetResponse"},
+ {"engine": "ChatGPT", "mode": f"search off · {cg_model}", "gr": P["chatgpt_off"][G], "rival": P["chatgpt_off"][R], "none": P["chatgpt_off"][N], "split": False, "note": "Klaviyo in every answer"},
+ {"engine": "ChatGPT", "mode": f"search on · {cg_model}", "gr": P["chatgpt_on"][G], "rival": P["chatgpt_on"][R], "none": P["chatgpt_on"][N], "split": False, "note": "GetResponse once: all-in-one value (Q8)"},
+ {"engine": "Gemini", "mode": "API · search on" if gem_api else "web app · earlier run", "gr": P["gemini"][G], "rival": P["gemini"][R], "none": P["gemini"][N], "split": False,
+  "note": "" if gem_api else "GetResponse on price (Q5); left out of alternatives (Q8). API rerun pending"},
+ {"engine": "Google", "mode": "AI Overview", "gr": P["google"][G], "rival": P["google"][R], "none": P["google"][N], "split": False, "note": f"{P['google'][N]} of 10 don't pick; GetResponse missing from alternatives"}],
+"strengths": {"gr": [{"label": "Beyond email (webinars, courses, sites)", "n": live40("F")}, {"label": "Price", "n": live40("B")}, {"label": "Ease of setup", "n": live40("I")}],
+ "rival": sorted([{"label": "Segmentation and predictions", "n": live40("C")}, {"label": "E-commerce flows", "n": live40("E")}, {"label": "Shopify integration", "n": live40("A")},
+                  {"label": "Revenue reporting", "n": live40("D")}, {"label": "SMS", "n": live40("G")}], key=lambda x: -x["n"])},
+"engines": [["claude", "Claude"], ["chatgpt", "ChatGPT"], ["gemini", "Gemini"], ["google", "Google"]],
+"consensus": [{"claim": CL[L], "counts": {"claude": cnt("claude_on", L), "chatgpt": cnt("chatgpt_on", L), "gemini": cnt("gemini", L), "google": cnt("google_on", L)}}
+              for L in sorted("ABCDEFGHI", key=lambda L: -live40(L))],
+"prompts": [r["prompt"] for r in raw("claude")["runs"] if r["search"] == "off"],
+"tabs": [["claude_off", "Claude · off"], ["claude_on", "Claude · on"], ["chatgpt_off", "ChatGPT · off"], ["chatgpt_on", "ChatGPT · on"], ["gemini", "Gemini"], ["google", "Google"]],
+"answers": {
+ "claude_off": {"note": f"Anthropic API ({cl_model}), web search off. No system prompt, no account context. Reasons are Claude's own one-line summary.", "rows": ans["claude_off"]},
+ "claude_on": {"note": f"Same model with web search on (US). It cited getresponse.com in {cite_gr('claude')} of 10 answers.", "rows": ans["claude_on"]},
+ "chatgpt_off": {"note": f"OpenAI API ({cg_model}), web search off.", "rows": ans["chatgpt_off"]},
+ "chatgpt_on": {"note": f"Web search forced on. It cited getresponse.com in {cite_gr('chatgpt')} of 10 answers and still picked Klaviyo in {P['chatgpt_on'][R]}.", "rows": ans["chatgpt_on"]},
+ "gemini": {"note": ("Gemini API with Google Search grounding." if gem_api else
+            "Earlier Gemini web app run (logged out, US VPN); Gemini chose when to search. Picks logged; reasons only where noted. An API rerun with reasons is pending billing."), "rows": ans["gemini"]},
+ "google": {"note": "Google US (gl=us, hl=en, pws=0), logged out, VPN. Pick judged by Launch Space: a named winner for the store case counts; split by store stage, pros/cons only or 'depends' = None.", "rows": ans["google"]}},
+"retest": [
+ dict(claim=CL["D"], L="D", check=f"Revenue per message and per workflow, on Marketer and up (updated 15 Apr 2026). Live search raises it more often: Claude cites it in {attr('claude','on')} of 10 live reasons.", url="https://www.getresponse.com/blog/email-revenue-attribution", verdict="outdated"),
+ dict(claim=CL["E"], L="E", check="Abandoned cart, browse abandonment (“products your shoppers considered”) and price drop campaigns exist (Apr 2026). No back-in-stock found.", url="https://www.getresponse.com/blog/price-drop-email", verdict="partly"),
+ dict(claim=CL["B"], L="B", check="Marketer, the first plan with abandoned cart: $59/mo at 1k vs Klaviyo $30. At 10k: €99 vs Klaviyo $150. Klaviyo prices are from third-party sources.", url=PRICE, verdict="partly"),
+ dict(claim=CL["H"], L="H", check="Starter has no abandoned cart; it starts at Marketer.", url=PRICE, verdict="holds"),
+ dict(claim=CL["A"], L="A", check="GetResponse's Shopify app: 1 review, rated 1.0.", url=SHOP, verdict="holds"),
+ dict(claim=CL["C"], L="C", check="AI recommendations are Enterprise only. No predictive CLV or churn found.", url=PRICE, verdict="holds"),
+ dict(claim=CL["G"], L="G", check="SMS only in GetResponse MAX (Enterprise, from $1,099/mo per the Shopify listing).", url=SHOP, verdict="holds"),
+ dict(claim=CL["F"], L="F", check="Creator plan includes webinars, courses and a website builder.", url=PRICE, verdict="holds"),
+ dict(claim=CL["I"], L="I", check="No primary source settles it.", url="", verdict="unclear")],
+"gapNote": (f"Live search doesn't fix the outdated claims; it spreads them. Claude with search on cited getresponse.com in {cite_gr('claude')} of 10 answers. "
+            f"ChatGPT cited it in {cite_gr('chatgpt')} of 10 and still credited Klaviyo with better attribution. Google quotes GetResponse's own comparison page for price "
+            "($15/mo, $65 at 10k), which looks like Starter pricing, the plan without abandoned cart. Check that page's figures, and state revenue attribution and the new flows in plain, dated lines so live engines have something to quote."),
+"how": ["10 fixed prompts, the same for every engine, asked as US, logged out. Prompts 1 and 2 swap the name order.",
+        f"Claude: Anthropic API ({cl_model}), search off then on. ChatGPT: OpenAI API ({cg_model}), search off then forced on. No account context or memory.",
+        "Google: the AI Overview in a logged-out browser on a US VPN, plus the top 3 organic results." + (" Gemini: API with Google Search grounding." if gem_api else " Gemini: earlier web app run; API rerun pending billing."),
+        "Training data = Claude + ChatGPT with search off (20 answers). Live = Claude + ChatGPT with search on, plus Google (30).",
+        "Claims are tagged by one Claude classifier across all answers" + ("." if gem_api else ", except Gemini (earlier run, hand-tagged)."),
+        "Primary sources = GetResponse's pricing page, blog, help docs and Shopify listing. Klaviyo prices come from third-party sources.",
+        "Not covered yet: logged-in runs, non-US results, Perplexity and Copilot."]}
+for x in d["retest"]:
+    L = x.pop("L"); x.update(train=train(L), trainOf=20, live=live30(L), liveOf=30)
+d["consensusNote"] = gem_note.strip()
+json.dump(d, open("docs/data/klaviyo.json", "w"), ensure_ascii=False, indent=1)
+print("picks", allp, {k: v for k, v in P.items()})
