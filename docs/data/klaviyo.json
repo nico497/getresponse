@@ -4,17 +4,17 @@
  "collected": "22 Nov 2026",
  "market": "US (VPN), logged out",
  "headline": {
-  "lead": "AI picks Klaviyo in 51 of 60 answers. Its main live reason, revenue attribution, is out of date. Address it first on the comparison page.",
+  "lead": "AI picks Klaviyo in 63 of 70 answers. Its main live reason, revenue attribution, is out of date. Address it first on the comparison page.",
   "points": [
    {
-    "text": "Klaviyo is picked in 51 of 60 answers. GetResponse wins 3, all on price or all-in-one value.",
+    "text": "Klaviyo is picked in 63 of 70 answers. GetResponse wins 2, all on price or all-in-one value.",
     "chips": [
-     "6 runs × 10 prompts",
+     "7 runs × 10 prompts",
      "US, logged out"
     ]
    },
    {
-    "text": "Search makes it worse, not better: Claude gives revenue attribution as a reason in 8 of 10 live answers, 1 of 10 offline. GetResponse now reports revenue per message and per workflow.",
+    "text": "Live search doesn't correct the revenue-reporting claim: 63% of search-off answers make it, 57% of live ones. GetResponse now reports revenue per message and per workflow.",
     "chips": [
      "Outdated",
      "Revenue attribution"
@@ -24,7 +24,7 @@
    {
     "text": "Price is the main reason AI ever picks GetResponse, but it only holds at bigger lists. At 1k contacts the plan with abandoned cart costs $59 against Klaviyo's $30.",
     "chips": [
-     "35 of 40 live answers",
+     "36 of 40 live answers",
      "Partly holds"
     ]
    }
@@ -34,42 +34,42 @@
   {
    "feature": "Revenue attribution",
    "need": 4,
-   "ai": "Klaviyo better (26/40)",
+   "ai": "Klaviyo better (23/40)",
    "verdict": "outdated",
-   "reason": "Outdated, and live search spreads it: Claude names it in 8 of 10 live reasons. GetResponse reports revenue per message and workflow (Marketer and up). Highest-leverage fix."
+   "reason": "Outdated, and search doesn't fix it: 63% of search-off and 57% of live answers make the claim, and Claude gives it as its stated reason in 8 of 10 live answers. GetResponse reports revenue per message and workflow (Marketer and up). It's the clearest fix we can prove."
   },
   {
    "feature": "E-commerce automation flows",
    "need": 5,
-   "ai": "Klaviyo deeper (31/40)",
+   "ai": "Klaviyo deeper (34/40)",
    "verdict": "partly",
    "reason": "Top store need and repeated almost everywhere. Browse abandonment and price drop campaigns are new (Apr 2026) and answers miss them. Back-in-stock is still missing, so say so."
   },
   {
    "feature": "Price by list size",
    "need": 5,
-   "ai": "GetResponse cheaper (35/40)",
+   "ai": "GetResponse cheaper (36/40)",
    "verdict": "partly",
    "reason": "The main reason AI picks GetResponse at all. True at 10k contacts, not at 1k on the plan stores need. Show a list-size table by plan so the claim survives a check."
   },
   {
    "feature": "Shopify integration",
    "need": 5,
-   "ai": "Klaviyo deeper (30/40)",
+   "ai": "Klaviyo deeper (31/40)",
    "verdict": "holds",
    "reason": "High need, and it holds: the Shopify app has 1 review rated 1.0. Cover it honestly. This is a product fix more than a page fix."
   },
   {
    "feature": "Abandoned cart by plan",
    "need": 4,
-   "ai": "Locked to higher plans (15/40)",
+   "ai": "Locked to higher plans (12/40)",
    "verdict": "holds",
-   "reason": "Live search adds this objection: 5 of 20 search-off answers raise it, 12 of 30 live ones. Starter has no abandoned cart. Name the plan that does, up front."
+   "reason": "Live search adds this objection: 5 of 30 search-off answers raise it, 12 of 40 live ones. Starter has no abandoned cart. Name the plan that does, up front."
   },
   {
    "feature": "Segmentation and predictions",
    "need": 4,
-   "ai": "Klaviyo stronger (32/40)",
+   "ai": "Klaviyo stronger (31/40)",
    "verdict": "holds",
    "reason": "Repeated almost everywhere and true: AI recommendations are Enterprise only; no predictive CLV or churn found. Don't contest it. Narrow it."
   },
@@ -83,14 +83,14 @@
   {
    "feature": "SMS",
    "need": 3,
-   "ai": "Klaviyo stronger (9/40)",
+   "ai": "Klaviyo stronger (4/40)",
    "verdict": "holds",
    "reason": "SMS is Enterprise only (MAX), but few answers raise it. One honest line is enough."
   },
   {
    "feature": "Beyond email (webinars, courses, sites)",
    "need": 2,
-   "ai": "GetResponse does more (33/40)",
+   "ai": "GetResponse does more (35/40)",
    "verdict": "holds",
    "reason": "Already credited and true (Creator plan). Low store need, so it goes last."
   }
@@ -134,12 +134,21 @@
   },
   {
    "engine": "Gemini",
-   "mode": "web app · earlier run",
-   "gr": 1,
-   "rival": 8,
-   "none": 1,
+   "mode": "search off · gemini-3.1-pro-preview",
+   "gr": 0,
+   "rival": 10,
+   "none": 0,
    "split": false,
-   "note": "GetResponse on price (Q5); left out of alternatives (Q8). API rerun pending"
+   "note": "Klaviyo in every answer"
+  },
+  {
+   "engine": "Gemini",
+   "mode": "search on · gemini-3.1-pro-preview",
+   "gr": 0,
+   "rival": 10,
+   "none": 0,
+   "split": false,
+   "note": "Klaviyo in every answer; searched 7 of 10"
   },
   {
    "engine": "Google",
@@ -155,11 +164,11 @@
   "gr": [
    {
     "label": "Beyond email (webinars, courses, sites)",
-    "n": 33
+    "n": 35
    },
    {
     "label": "Price",
-    "n": 35
+    "n": 36
    },
    {
     "label": "Ease of setup",
@@ -168,24 +177,24 @@
   ],
   "rival": [
    {
-    "label": "Segmentation and predictions",
-    "n": 32
+    "label": "E-commerce flows",
+    "n": 34
    },
    {
-    "label": "E-commerce flows",
+    "label": "Segmentation and predictions",
     "n": 31
    },
    {
     "label": "Shopify integration",
-    "n": 30
+    "n": 31
    },
    {
     "label": "Revenue reporting",
-    "n": 26
+    "n": 23
    },
    {
     "label": "SMS",
-    "n": 9
+    "n": 4
    }
   ]
  },
@@ -213,7 +222,7 @@
    "counts": {
     "claude": 10,
     "chatgpt": 7,
-    "gemini": 9,
+    "gemini": 10,
     "google": 9
    }
   },
@@ -222,16 +231,7 @@
    "counts": {
     "claude": 8,
     "chatgpt": 8,
-    "gemini": 8,
-    "google": 9
-   }
-  },
-  {
-   "claim": "Klaviyo segments better and predicts (CLV, churn)",
-   "counts": {
-    "claude": 7,
-    "chatgpt": 8,
-    "gemini": 8,
+    "gemini": 10,
     "google": 9
    }
   },
@@ -240,7 +240,7 @@
    "counts": {
     "claude": 9,
     "chatgpt": 8,
-    "gemini": 6,
+    "gemini": 9,
     "google": 8
    }
   },
@@ -248,8 +248,17 @@
    "claim": "Klaviyo integrates more deeply with Shopify",
    "counts": {
     "claude": 7,
+    "chatgpt": 7,
+    "gemini": 9,
+    "google": 8
+   }
+  },
+  {
+   "claim": "Klaviyo segments better and predicts (CLV, churn)",
+   "counts": {
+    "claude": 7,
     "chatgpt": 8,
-    "gemini": 7,
+    "gemini": 8,
     "google": 8
    }
   },
@@ -258,16 +267,16 @@
    "counts": {
     "claude": 8,
     "chatgpt": 5,
-    "gemini": 7,
-    "google": 6
+    "gemini": 5,
+    "google": 5
    }
   },
   {
    "claim": "GetResponse locks abandoned cart behind higher plans",
    "counts": {
-    "claude": 8,
-    "chatgpt": 2,
-    "gemini": 3,
+    "claude": 7,
+    "chatgpt": 3,
+    "gemini": 0,
     "google": 2
    }
   },
@@ -283,9 +292,9 @@
   {
    "claim": "Klaviyo has stronger SMS",
    "counts": {
-    "claude": 4,
+    "claude": 3,
     "chatgpt": 1,
-    "gemini": 4,
+    "gemini": 0,
     "google": 0
    }
   }
@@ -320,8 +329,12 @@
    "ChatGPT · on"
   ],
   [
-   "gemini",
-   "Gemini"
+   "gemini_off",
+   "Gemini · off"
+  ],
+  [
+   "gemini_on",
+   "Gemini · on"
   ],
   [
    "google",
@@ -549,58 +562,113 @@
     ]
    ]
   },
-  "gemini": {
-   "note": "Earlier Gemini web app run (logged out, US VPN); Gemini chose when to search. Picks logged; reasons only where noted. An API rerun with reasons is pending billing.",
+  "gemini_off": {
+   "note": "Gemini API (gemini-3.1-pro-preview), no search tool.",
    "rows": [
     [
      "Klaviyo",
-     "",
-     "Shown"
+     "It offers superior e-commerce integrations, behavioral segmentation, and revenue tracking",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "Shown"
+     "Unmatched e-commerce integrations and behavioral segmentation drive higher store revenue",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "None shown"
+     "Its deep Shopify integration and advanced ecommerce behavior tracking are unmatched",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "Shown"
-    ],
-    [
-     "GetResponse",
-     "Answered yes: cheaper",
-     "Shown"
+     "It provides unparalleled ecommerce platform integrations and purchase-driven automation",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "Shown"
+     "Unmatched ecommerce data integration, advanced segmentation, and automated revenue-driving flows",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "Shown"
-    ],
-    [
-     "None",
-     "GetResponse not mentioned",
-     "Shown"
+     "Superior e-commerce integrations and dynamic product blocks for cart recovery",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "None shown"
+     "Unmatched e-commerce integrations and highly granular purchase behavior tracking",
+     "Search off"
     ],
     [
      "Klaviyo",
-     "",
-     "None shown"
+     "Unmatched ecommerce data tracking, predictive analytics, and seamless Shopify integrations",
+     "Search off"
+    ],
+    [
+     "Klaviyo",
+     "Unmatched e-commerce integrations, deep behavioral segmentation, and precise revenue tracking",
+     "Search off"
+    ],
+    [
+     "Klaviyo",
+     "Klaviyo offers unmatched e-commerce integrations and deep purchase behavior tracking",
+     "Search off"
+    ]
+   ]
+  },
+  "gemini_on": {
+   "note": "Google Search grounding on, plus one line asking it to check Google first (the API can't force a search). It searched on 7 of 10 and cited getresponse.com in 1.",
+   "rows": [
+    [
+     "Klaviyo",
+     "Unmatched ecommerce integrations, real-time store syncing, and advanced behavioral segmentation",
+     "compareaitools.org, emailsoftwarereview.com, marketingautomationbuyersguide.com, marketingautomationinsider.com, omnisend.com, sendpulse.com, sequenzy.com"
+    ],
+    [
+     "Klaviyo",
+     "It offers superior e-commerce integrations, deep behavioral tracking, and advanced segmentation",
+     "Didn't search"
+    ],
+    [
+     "Klaviyo",
+     "Unmatched native Shopify integration and superior e-commerce behavioral segmentation",
+     "Didn't search"
+    ],
+    [
+     "Klaviyo",
+     "Unmatched native ecommerce integrations, pre-built flows, and advanced behavioral revenue tracking",
+     "klaviyo.com, marketingautomationbuyersguide.com, omnisend.com, sendpulse.com"
+    ],
+    [
+     "Klaviyo",
+     "Superior e-commerce integrations and advanced segmentation drive higher store revenue",
+     "activepieces.com, emailtooltester.com, enrichlabs.ai, klaviyo.com, omnisend.com, relvino.com, sendpulse.com, softwr.com, youtube.com"
+    ],
+    [
+     "Klaviyo",
+     "Superior real-time e-commerce integrations and dynamic product blocks",
+     "compareaitools.org, cuspera.com, decisionwire.com, enchantagency.com, sendpulse.com, sequenzy.com, yournextstore.com"
+    ],
+    [
+     "Klaviyo",
+     "Deep ecommerce integrations power highly targeted, revenue generating behavioral flows",
+     "decisionwire.com, emailsoftwarereview.com, omnisend.com, sendpulse.com"
+    ],
+    [
+     "Klaviyo",
+     "It offers unmatched deep data integrations specifically designed for ecommerce platforms",
+     "Didn't search"
+    ],
+    [
+     "Klaviyo",
+     "Unmatched ecommerce integrations, advanced purchase-based segmentation, and direct revenue attribution",
+     "activecampaign.com, compareaitools.org, getresponse.com, mailmodo.com, marketingautomationbuyersguide.com, modern-letter.com, omnisend.com, saufter.io, sendpulse.com, stackcut.net"
+    ],
+    [
+     "Klaviyo",
+     "Unmatched e-commerce integrations and advanced customer segmentation drive higher store revenue",
+     "emailsequenceai.com, marketingautomationbuyersguide.com, marketingautomationinsider.com, omnisend.com"
     ]
    ]
   },
@@ -663,33 +731,33 @@
  "retest": [
   {
    "claim": "Klaviyo has better revenue reporting",
-   "check": "Revenue per message and per workflow, on Marketer and up (updated 15 Apr 2026). Live search raises it more often: Claude cites it in 8 of 10 live reasons.",
+   "check": "Revenue per message and per workflow, on Marketer and up (updated 15 Apr 2026).",
    "url": "https://www.getresponse.com/blog/email-revenue-attribution",
    "verdict": "outdated",
-   "train": 16,
-   "trainOf": 20,
-   "live": 19,
-   "liveOf": 30
+   "train": 19,
+   "trainOf": 30,
+   "live": 23,
+   "liveOf": 40
   },
   {
    "claim": "Klaviyo's e-commerce flows go deeper",
    "check": "Abandoned cart, browse abandonment (“products your shoppers considered”) and price drop campaigns exist (Apr 2026). No back-in-stock found.",
    "url": "https://www.getresponse.com/blog/price-drop-email",
    "verdict": "partly",
-   "train": 17,
-   "trainOf": 20,
-   "live": 25,
-   "liveOf": 30
+   "train": 26,
+   "trainOf": 30,
+   "live": 34,
+   "liveOf": 40
   },
   {
    "claim": "GetResponse is cheaper",
    "check": "Marketer, the first plan with abandoned cart: $59/mo at 1k vs Klaviyo $30. At 10k: €99 vs Klaviyo $150. Klaviyo prices are from third-party sources.",
    "url": "https://www.getresponse.com/pricing",
    "verdict": "partly",
-   "train": 19,
-   "trainOf": 20,
-   "live": 26,
-   "liveOf": 30
+   "train": 27,
+   "trainOf": 30,
+   "live": 36,
+   "liveOf": 40
   },
   {
    "claim": "GetResponse locks abandoned cart behind higher plans",
@@ -697,29 +765,29 @@
    "url": "https://www.getresponse.com/pricing",
    "verdict": "holds",
    "train": 5,
-   "trainOf": 20,
+   "trainOf": 30,
    "live": 12,
-   "liveOf": 30
+   "liveOf": 40
   },
   {
    "claim": "Klaviyo integrates more deeply with Shopify",
    "check": "GetResponse's Shopify app: 1 review, rated 1.0.",
    "url": "https://apps.shopify.com/getresponse-official",
    "verdict": "holds",
-   "train": 19,
-   "trainOf": 20,
-   "live": 23,
-   "liveOf": 30
+   "train": 28,
+   "trainOf": 30,
+   "live": 31,
+   "liveOf": 40
   },
   {
    "claim": "Klaviyo segments better and predicts (CLV, churn)",
    "check": "AI recommendations are Enterprise only. No predictive CLV or churn found.",
    "url": "https://www.getresponse.com/pricing",
    "verdict": "holds",
-   "train": 19,
-   "trainOf": 20,
-   "live": 24,
-   "liveOf": 30
+   "train": 27,
+   "trainOf": 30,
+   "live": 31,
+   "liveOf": 40
   },
   {
    "claim": "Klaviyo has stronger SMS",
@@ -727,40 +795,39 @@
    "url": "https://apps.shopify.com/getresponse-official",
    "verdict": "holds",
    "train": 2,
-   "trainOf": 20,
-   "live": 5,
-   "liveOf": 30
+   "trainOf": 30,
+   "live": 4,
+   "liveOf": 40
   },
   {
    "claim": "GetResponse does more beyond email",
    "check": "Creator plan includes webinars, courses and a website builder.",
    "url": "https://www.getresponse.com/pricing",
    "verdict": "holds",
-   "train": 18,
-   "trainOf": 20,
-   "live": 25,
-   "liveOf": 30
+   "train": 28,
+   "trainOf": 30,
+   "live": 35,
+   "liveOf": 40
   },
   {
    "claim": "GetResponse is easier to set up",
    "check": "No primary source settles it.",
    "url": "",
    "verdict": "unclear",
-   "train": 8,
-   "trainOf": 20,
-   "live": 10,
-   "liveOf": 30
+   "train": 11,
+   "trainOf": 30,
+   "live": 12,
+   "liveOf": 40
   }
  ],
- "gapNote": "Live search doesn't fix the outdated claims; it spreads them. Claude with search on cited getresponse.com in 0 of 10 answers. ChatGPT cited it in 9 of 10 and still credited Klaviyo with better attribution. Google quotes GetResponse's own comparison page for price ($15/mo, $65 at 10k), which looks like Starter pricing, the plan without abandoned cart. Check that page's figures, and state revenue attribution and the new flows in plain, dated lines so live engines have something to quote.",
+ "gapNote": "Live search barely changes what AI says: the claims AI makes are about as common with search on as off. Claude with search on cited getresponse.com in 0 of 10 answers, Gemini in 1. ChatGPT cited it in 9 of 10 and still credited Klaviyo with better attribution. Google quotes GetResponse's own comparison page for price ($15/mo, $65 at 10k), which looks like Starter pricing, the plan without abandoned cart. Check that page's figures, and state revenue attribution and the new flows in plain, dated lines so live engines have something to quote.",
  "how": [
   "10 fixed prompts, the same for every engine, asked as US, logged out. Prompts 1 and 2 swap the name order.",
   "Claude: Anthropic API (claude-sonnet-5-5), search off then on. ChatGPT: OpenAI API (gpt-5.2), search off then forced on. No account context or memory.",
-  "Google: the AI Overview in a logged-out browser on a US VPN, plus the top 3 organic results. Gemini: earlier web app run; API rerun pending billing.",
-  "Training data = Claude + ChatGPT with search off (20 answers). Live = Claude + ChatGPT with search on, plus Google (30).",
-  "Claims are tagged by one Claude classifier across all answers, except Gemini (earlier run, hand-tagged).",
+  "Gemini: API (gemini-3.1-pro-preview), no search then Google Search grounding; it chose to search on 7 of 10. Google: the AI Overview in a logged-out browser on a US VPN, plus the top 3 organic results.",
+  "Training data = Claude, ChatGPT and Gemini with search off (30 answers). Live = the same three with search on, plus Google (40).",
+  "Claims are tagged by one Claude classifier across all 70 answers.",
   "Primary sources = GetResponse's pricing page, blog, help docs and Shopify listing. Klaviyo prices come from third-party sources.",
   "Not covered yet: logged-in runs, non-US results, Perplexity and Copilot."
- ],
- "consensusNote": "Gemini column: earlier app run, hand-tagged; API rerun pending."
+ ]
 }
