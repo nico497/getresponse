@@ -6,8 +6,24 @@ Writes data/raw/chatgpt-<rival>.json. Needs the OPENAI_API_KEY environment varia
 import json, os, sys, time, datetime, urllib.request, urllib.error
 
 RIVAL = os.environ.get("RIVAL", "Klaviyo")
-MODEL = os.environ.get("OPENAI_MODEL", "gpt-5")
 KEY = os.environ["OPENAI_API_KEY"]
+PREFERRED = ["gpt-5.2", "gpt-5.1", "gpt-5", "gpt-4.1", "gpt-4o"]
+
+
+def pick_model():
+    """Use OPENAI_MODEL if set, else the newest preferred model this key can use."""
+    if os.environ.get("OPENAI_MODEL"):
+        return os.environ["OPENAI_MODEL"]
+    req = urllib.request.Request("https://api.openai.com/v1/models", headers={"Authorization": f"Bearer {KEY}"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        ids = {m["id"] for m in json.load(r).get("data", [])}
+    for m in PREFERRED:
+        if m in ids:
+            return m
+    raise SystemExit("None of the preferred models are available: " + ", ".join(PREFERRED))
+
+
+MODEL = None
 
 PROMPTS = [
     f"Which is better for an online store, GetResponse or {RIVAL}?",
@@ -57,6 +73,9 @@ def call(prompt, search):
 
 
 def main():
+    global MODEL
+    MODEL = pick_model()
+    print("model:", MODEL, flush=True)
     out = {"engine": "ChatGPT (OpenAI API)", "model": MODEL, "rival": RIVAL,
            "collected": datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC"), "runs": []}
     for mode in ("off", "on"):
