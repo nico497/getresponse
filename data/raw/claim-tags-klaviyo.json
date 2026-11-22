@@ -1,1 +1,97 @@
-{"claude_off": {"A": 4, "B": 9, "C": 9, "D": 9, "E": 8, "F": 8, "G": 7, "H": 3, "I": 2}, "claude_on": {"A": 4, "B": 8, "C": 5, "D": 5, "E": 7, "F": 6, "G": 3, "H": 8, "I": 4}, "gemini": {"A": 7, "B": 9, "C": 8, "D": 7, "E": 6, "F": 8, "G": 4, "H": 3, "I": 2}, "google": {"A": 2, "B": 9, "C": 7, "D": 3, "E": 4, "F": 9, "G": 0, "H": 1, "I": 0}, "chatgpt_off": {"A": 6, "B": 7, "C": 10, "D": 9, "E": 10, "F": 9, "G": 8, "H": 1, "I": 6}, "chatgpt_on": {"A": 5, "B": 4, "C": 10, "D": 5, "E": 10, "F": 8, "G": 7, "H": 1, "I": 4}}
+{
+ "claude_off": {
+  "1": "",
+  "2": "",
+  "3": "ABCDEFGH",
+  "4": "",
+  "5": "",
+  "6": "",
+  "7": "",
+  "8": "",
+  "9": "",
+  "10": "ABCDEFI"
+ },
+ "claude_on": {
+  "1": "",
+  "2": "",
+  "3": "ABCDEF",
+  "4": "",
+  "5": "",
+  "6": "",
+  "7": "",
+  "8": "",
+  "9": "",
+  "10": ""
+ },
+ "gemini": {
+  "A": 7,
+  "B": 9,
+  "C": 8,
+  "D": 7,
+  "E": 6,
+  "F": 8,
+  "G": 4,
+  "H": 3,
+  "I": 2
+ },
+ "google": {
+  "A": 2,
+  "B": 9,
+  "C": 7,
+  "D": 3,
+  "E": 4,
+  "F": 9,
+  "G": 0,
+  "H": 1,
+  "I": 0
+ },
+ "chatgpt_off": {
+  "1": "",
+  "2": "",
+  "3": "",
+  "4": "",
+  "5": "",
+  "6": "",
+  "7": "",
+  "8": "",
+  "9": "",
+  "10": ""
+ },
+ "chatgpt_on": {
+  "1": "",
+  "2": "",
+  "3": "AEF",
+  "4": "",
+  "5": "",
+  "6": "",
+  "7": "",
+  "8": "",
+  "9": "",
+  "10": ""
+ },
+ "_claims": {
+  "A": "Klaviyo integrates more deeply with Shopify than GetResponse",
+  "B": "GetResponse is cheaper than Klaviyo",
+  "C": "Klaviyo has better segmentation or predictive analytics (CLV, churn, AI predictions)",
+  "D": "Klaviyo has better revenue reporting or attribution",
+  "E": "Klaviyo's e-commerce automation flows are deeper or more advanced",
+  "F": "GetResponse does more beyond email (webinars, courses, landing pages, website builder)",
+  "G": "Klaviyo has stronger SMS",
+  "H": "GetResponse puts abandoned cart or e-commerce automation on higher-priced plans",
+  "I": "GetResponse is easier to set up or use"
+ },
+ "_method": "Claude classifier (claude-sonnet-5-5)",
+ "google_off": {},
+ "google_on": {
+  "1": "",
+  "2": "",
+  "3": "",
+  "4": "",
+  "5": "",
+  "6": "",
+  "7": "",
+  "8": "",
+  "9": "",
+  "10": ""
+ }
+}
