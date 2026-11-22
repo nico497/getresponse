@@ -58,7 +58,7 @@
   "10": "ABCDEF"
  },
  "chatgpt_on": {
-  "1": "ABCEF",
+  "1": "BCEF",
   "2": "ABCDEFG",
   "3": "AEF",
   "4": "ABCDEF",
@@ -90,8 +90,32 @@
   "5": "BF",
   "6": "ABCEFHI",
   "7": "ABCDEFHI",
-  "8": "CD",
+  "8": "",
   "9": "ABCDEFI",
   "10": "ABCEFI"
+ },
+ "gemini_off": {
+  "1": "ABCDEF",
+  "2": "ABCDEF",
+  "3": "ABCEFI",
+  "4": "ABCEF",
+  "5": "B",
+  "6": "ABCEF",
+  "7": "ABCEFI",
+  "8": "F",
+  "9": "ABCFI",
+  "10": "ABCEF"
+ },
+ "gemini_on": {
+  "1": "ABCDEF",
+  "2": "ABCEFI",
+  "3": "ABCDEF",
+  "4": "ABCDEFI",
+  "5": "ABCD",
+  "6": "AEF",
+  "7": "ABCEFI",
+  "8": "F",
+  "9": "ABCDEFGI",
+  "10": "ABCEF"
  }
 }
