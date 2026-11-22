@@ -37,3 +37,17 @@ A file with `"pending": true` shows a "not run yet" state. A filled file has:
 ## Next step: live data
 
 Replace the sample files with output from scripted runs (Claude, ChatGPT, Gemini APIs with search off and on, plus Google results), writing the same JSON shape. The page needs no changes.
+
+## Running the engines
+
+Actions → **Run engine prompts** → Run workflow. Pick the competitor and which engines.
+
+| Engine | Secret | Optional variable |
+| --- | --- | --- |
+| ChatGPT | `OPENAI_API_KEY` | `OPENAI_MODEL` |
+| Claude | `ANTHROPIC_API_KEY` | `ANTHROPIC_MODEL` |
+| Gemini | `GEMINI_API_KEY` | `GEMINI_MODEL` |
+
+Each run saves the full answer, pick, reason and cited sources to `data/raw/`, search off and on.
+Every saved answer is then tagged with the same Claude classifier (`scripts/tag_claims.py`).
+Google AI Overviews have no official API, so they are still collected by hand.

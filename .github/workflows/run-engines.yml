@@ -1,0 +1,52 @@
+name: Run engine prompts
+on:
+  workflow_dispatch:
+    inputs:
+      rival:
+        description: Competitor name
+        default: Klaviyo
+        required: true
+      engines:
+        description: Which engines to run
+        type: choice
+        default: claude + gemini
+        options: [all, claude + gemini, claude, gemini, chatgpt, tag only]
+permissions:
+  contents: write
+concurrency: engines
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    env:
+      RIVAL: ${{ inputs.rival }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      ANTHROPIC_MODEL: ${{ vars.ANTHROPIC_MODEL }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: ChatGPT
+        if: inputs.engines == 'all' || inputs.engines == 'chatgpt'
+        run: python scripts/run_chatgpt.py
+      - name: Claude
+        if: inputs.engines == 'all' || inputs.engines == 'claude + gemini' || inputs.engines == 'claude'
+        run: python scripts/run_claude.py
+      - name: Gemini
+        if: inputs.engines == 'all' || inputs.engines == 'claude + gemini' || inputs.engines == 'gemini'
+        run: python scripts/run_gemini.py
+      - name: Tag claims (one Claude classifier for every saved answer)
+        if: always() && env.ANTHROPIC_API_KEY != ''
+        run: python scripts/tag_claims.py
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git add data/raw
+          git commit -m "Engine run: ${{ inputs.engines }} · ${{ inputs.rival }}" || echo "nothing to commit"
+          git pull --rebase -q && git push
