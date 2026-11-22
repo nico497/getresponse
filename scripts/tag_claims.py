@@ -27,7 +27,7 @@ GUIDE = ("You label answers about two email marketing tools. A claim counts only
 
 
 def tag(text):
-    body = {"model": MODEL, "max_tokens": 100, "temperature": 0, "system": GUIDE,
+    body = {"model": MODEL, "max_tokens": 100, "system": GUIDE,
             "messages": [{"role": "user", "content": text[:20000]}]}
     out = "".join(b.get("text", "") for b in http("https://api.anthropic.com/v1/messages", body, H)["content"])
     m = re.search(r"\{.*\}", out, re.S)
@@ -39,7 +39,7 @@ def main():
     path = f"data/raw/claim-tags-{R.lower()}.json"
     tags = json.load(open(path)) if os.path.exists(path) else {}
     tags["_claims"] = CLAIMS
-    tags["_method"] = f"Claude classifier ({MODEL}), temperature 0"
+    tags["_method"] = f"Claude classifier ({MODEL})"
     for f in sorted(glob.glob(f"data/raw/*-{R.lower()}.json")):
         if "claim-tags" in f:
             continue

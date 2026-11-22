@@ -10,7 +10,7 @@ from common import http, first_available, run_all
 KEY = os.environ["GEMINI_API_KEY"]
 BASE = "https://generativelanguage.googleapis.com/v1beta"
 H = {"x-goog-api-key": KEY}
-PREFERRED = ["gemini-3-pro-preview", "gemini-3-pro", "gemini-2.5-pro", "gemini-2.5-flash"]
+PREFERRED = ["gemini-3.1-pro-preview", "gemini-3.1-pro", "gemini-3-pro-preview", "gemini-3-pro", "gemini-3.1-flash", "gemini-3-flash", "gemini-2.5-flash"]
 
 
 def call(prompt, search):
