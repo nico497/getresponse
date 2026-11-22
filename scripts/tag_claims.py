@@ -22,7 +22,7 @@ CLAIMS = {
     "I": "GetResponse is easier to set up or use",
 }
 GUIDE = ("You label answers about two email marketing tools. A claim counts only if the answer states or clearly "
-         "implies it. Ignore the final PICK/REASON lines. Record your labels with the label tool.\n\nClaims:\n"
+         "implies it. Ignore the final PICK/REASON lines. You must finish by calling the label tool once.\n\nClaims:\n"
          + "\n".join(f"{k}: {v}" for k, v in CLAIMS.items()))
 
 
@@ -32,8 +32,8 @@ TOOL = {"name": "label", "description": "Record which claims the answer makes.",
 
 
 def tag(text):
-    body = {"model": MODEL, "max_tokens": 1000, "system": GUIDE, "tools": [TOOL],
-            "tool_choice": {"type": "tool", "name": "label"},
+    body = {"model": MODEL, "max_tokens": 3000, "system": GUIDE, "tools": [TOOL],
+            "tool_choice": {"type": "auto"},
             "messages": [{"role": "user", "content": "Answer to label:\n\n" + text[:20000]}]}
     blocks = http("https://api.anthropic.com/v1/messages", body, H)["content"]
     got = next((b["input"] for b in blocks if b.get("type") == "tool_use"), {})
