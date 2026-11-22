@@ -22,19 +22,24 @@ CLAIMS = {
     "I": "GetResponse is easier to set up or use",
 }
 GUIDE = ("You label answers about two email marketing tools. A claim counts only if the answer states or clearly "
-         "implies it. Ignore the final PICK/REASON lines. Reply with JSON only: {\"claims\": [letters]}.\n\nClaims:\n"
+         "implies it. Ignore the final PICK/REASON lines. Record your labels with the label tool.\n\nClaims:\n"
          + "\n".join(f"{k}: {v}" for k, v in CLAIMS.items()))
 
 
+TOOL = {"name": "label", "description": "Record which claims the answer makes.",
+        "input_schema": {"type": "object", "required": list(CLAIMS),
+                         "properties": {k: {"type": "boolean", "description": v} for k, v in CLAIMS.items()}}}
+
+
 def tag(text):
-    body = {"model": MODEL, "max_tokens": 400, "system": GUIDE,
+    body = {"model": MODEL, "max_tokens": 1000, "system": GUIDE, "tools": [TOOL],
+            "tool_choice": {"type": "tool", "name": "label"},
             "messages": [{"role": "user", "content": "Answer to label:\n\n" + text[:20000]}]}
-    out = "".join(b.get("text", "") for b in http("https://api.anthropic.com/v1/messages", body, H)["content"]
-                  if b.get("type") == "text")
-    m = re.search(r'"claims"\s*:\s*\[(.*?)\]', out, re.S)
-    letters = set(re.findall(r'"\s*([A-I])\b', m.group(1))) if m else set()
-    RAWLOG.append({"reply": out[:300], "letters": "".join(sorted(letters))})
-    return "".join(sorted(letters))
+    blocks = http("https://api.anthropic.com/v1/messages", body, H)["content"]
+    got = next((b["input"] for b in blocks if b.get("type") == "tool_use"), {})
+    letters = "".join(k for k in CLAIMS if got.get(k) is True)
+    RAWLOG.append({"input": got, "letters": letters})
+    return letters
 
 
 RAWLOG = []
