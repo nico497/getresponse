@@ -250,6 +250,15 @@ tr:last-child td { border-bottom: 0; }
       }).join("") + "</tbody></table></div>" +
       '<p class="versus"><b>The gap to close:</b> ' + esc(d.gapNote) + "</p></section>";
 
+    // 5 actions
+    if (d.actions) {
+      h += '<section class="sec"><div class="sechead"><h2 class="title">Additional actions</h2><p class="sub">What the findings point to beyond the comparison page copy. Ranked by impact.</p></div>' +
+        '<div class="tablewrap"><table><thead><tr><th>Rank</th><th>Action</th><th>Why</th><th>Context</th></tr></thead><tbody>' +
+        d.actions.map(function (x, i) {
+          return '<tr><td><span class="badge">' + (i + 1) + '</span></td><td class="rl" style="min-width:220px">' + esc(x.action) + '<small>' + esc(x.detail) + '</small></td><td style="min-width:260px">' + esc(x.why) + '</td><td style="min-width:200px">' + esc(x.context) + "</td></tr>";
+        }).join("") + "</tbody></table></div></section>";
+    }
+
     // how
     h += '<section class="sec"><div class="sechead"><h2 class="title">How this works, and what it doesn\'t cover yet</h2></div><ul class="how">' +
       (d.how || []).map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") +

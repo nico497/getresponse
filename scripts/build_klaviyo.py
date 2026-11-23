@@ -68,7 +68,7 @@ d = {
  {"feature": "Price by list size", "need": 5, "ai": f"GetResponse cheaper ({live40('B')}/40)", "verdict": "partly",
   "reason": "The main reason AI picks GetResponse at all. True at 10k contacts, not at 1k on the plan stores need. Show a list-size table by plan so the claim survives a check."},
  {"feature": "Shopify integration", "need": 5, "ai": f"Klaviyo deeper ({live40('A')}/40)", "verdict": "holds",
-  "reason": "High need, and it holds: the Shopify app has 1 review rated 1.0. Cover it honestly. This is a product fix more than a page fix."},
+  "reason": "High need, and it holds: the Shopify app listing has 4 ratings (3 five-star, 1 one-star) against Klaviyo's roughly 3,400 at 4.7. Cover it honestly, and build reviews."},
  {"feature": "Abandoned cart by plan", "need": 4, "ai": f"Locked to higher plans ({live40('H')}/40)", "verdict": "holds",
   "reason": f"Live search adds this objection: {train('H')} of 30 search-off answers raise it, {live30('H')} of 40 live ones. Starter has no abandoned cart. Name the plan that does, up front."},
  {"feature": "Segmentation and predictions", "need": 4, "ai": f"Klaviyo stronger ({live40('C')}/40)", "verdict": "holds",
@@ -108,11 +108,17 @@ d = {
  dict(claim=CL["E"], L="E", check="Abandoned cart, browse abandonment (“products your shoppers considered”) and price drop campaigns exist (Apr 2026). No back-in-stock found.", url="https://www.getresponse.com/blog/price-drop-email", verdict="partly"),
  dict(claim=CL["B"], L="B", check="Marketer, the first plan with abandoned cart: $59/mo at 1k vs Klaviyo $30. At 10k: €99 vs Klaviyo $150. Klaviyo prices are from third-party sources.", url=PRICE, verdict="partly"),
  dict(claim=CL["H"], L="H", check="Starter has no abandoned cart; it starts at Marketer.", url=PRICE, verdict="holds"),
- dict(claim=CL["A"], L="A", check="GetResponse's Shopify app: 1 review, rated 1.0.", url=SHOP, verdict="holds"),
+ dict(claim=CL["A"], L="A", check="GetResponse's Shopify app: 4 ratings (3 five-star, 1 one-star). Klaviyo's listing: about 3,400 reviews, 4.7.", url=SHOP, verdict="holds"),
  dict(claim=CL["C"], L="C", check="AI recommendations are Enterprise only. No predictive CLV or churn found.", url=PRICE, verdict="holds"),
  dict(claim=CL["G"], L="G", check="SMS only in GetResponse MAX (Enterprise, from $1,099/mo per the Shopify listing).", url=SHOP, verdict="holds"),
  dict(claim=CL["F"], L="F", check="Creator plan includes webinars, courses and a website builder.", url=PRICE, verdict="holds"),
  dict(claim=CL["I"], L="I", check="No primary source settles it.", url="", verdict="unclear")],
+"actions": [
+ {"action": "Collect Shopify app reviews", "detail": "Email current Shopify customers, add an in-app prompt, and reply to the 1-star.", "why": "Shopify integration is the weakness that holds most clearly (31 of 40 live answers). The listing has almost no social proof.", "context": "Klaviyo: about 3,400 reviews, 4.7. GetResponse: 4 ratings. G2 is not the gap (1,100+ reviews)."},
+ {"action": "Fix price figures on GetResponse's comparison page", "detail": "Show price by plan and mark which plan includes abandoned cart.", "why": "Google's AI Overview quotes \u201c$15/mo, $65 at 10k\u201d, which looks like Starter pricing, the plan without abandoned cart. The page ranks #1 for 5 of 10 prompts, so errors get repeated.", "context": "Marketer is $59/mo at 1k contacts. Klaviyo is about $30 (third-party source)."},
+ {"action": "Publish a dated revenue-attribution statement", "detail": "State per-message and per-workflow revenue reporting in one plain line, and link it from the comparison page.", "why": f"{pct(live30('D'),40)}% of live answers say Klaviyo's revenue reporting is better. GetResponse already reports it (Marketer and up).", "context": "Existing post: email-revenue-attribution, updated 15 Apr 2026."},
+ {"action": "Get GetResponse into \u201cKlaviyo alternatives\u201d lists", "detail": "Pitch the list pages these answers cite.", "why": "Google's and Gemini's alternatives answers leave GetResponse out. Claude's suggests Omnisend.", "context": "Cited list sites include ventureharbour, drip, constantcontact and campaignmonitor."},
+ {"action": "Name the abandoned-cart plan up front", "detail": "On every e-commerce page, say which plan includes it.", "why": f"{live30('H')} of 40 live answers say it's locked to higher plans, versus {train('H')} of 30 offline. It's true, so hiding it costs trust.", "context": "Starter has none. Marketer is the first plan with it."}],
 "gapNote": (f"Live search barely changes what AI says: the claims AI makes are about as common with search on as off. Claude with search on cited getresponse.com in {cite_gr('claude')} of 10 answers, Gemini in {sum(any('getresponse' in u for u in r['sources']) for r in raw('gemini')['runs'] if r['search'] == 'on')}. "
             f"ChatGPT cited it in {cite_gr('chatgpt')} of 10 and still credited Klaviyo with better attribution. Google quotes GetResponse's own comparison page for price "
             "($15/mo, $65 at 10k), which looks like Starter pricing, the plan without abandoned cart. Check that page's figures, and state revenue attribution and the new flows in plain, dated lines so live engines have something to quote."),

@@ -57,7 +57,7 @@
    "need": 5,
    "ai": "Klaviyo deeper (31/40)",
    "verdict": "holds",
-   "reason": "High need, and it holds: the Shopify app has 1 review rated 1.0. Cover it honestly. This is a product fix more than a page fix."
+   "reason": "High need, and it holds: the Shopify app listing has 4 ratings (3 five-star, 1 one-star) against Klaviyo's roughly 3,400 at 4.7. Cover it honestly, and build reviews."
   },
   {
    "feature": "Abandoned cart by plan",
@@ -771,7 +771,7 @@
   },
   {
    "claim": "Klaviyo integrates more deeply with Shopify",
-   "check": "GetResponse's Shopify app: 1 review, rated 1.0.",
+   "check": "GetResponse's Shopify app: 4 ratings (3 five-star, 1 one-star). Klaviyo's listing: about 3,400 reviews, 4.7.",
    "url": "https://apps.shopify.com/getresponse-official",
    "verdict": "holds",
    "train": 28,
@@ -818,6 +818,38 @@
    "trainOf": 30,
    "live": 12,
    "liveOf": 40
+  }
+ ],
+ "actions": [
+  {
+   "action": "Collect Shopify app reviews",
+   "detail": "Email current Shopify customers, add an in-app prompt, and reply to the 1-star.",
+   "why": "Shopify integration is the weakness that holds most clearly (31 of 40 live answers). The listing has almost no social proof.",
+   "context": "Klaviyo: about 3,400 reviews, 4.7. GetResponse: 4 ratings. G2 is not the gap (1,100+ reviews)."
+  },
+  {
+   "action": "Fix price figures on GetResponse's comparison page",
+   "detail": "Show price by plan and mark which plan includes abandoned cart.",
+   "why": "Google's AI Overview quotes “$15/mo, $65 at 10k”, which looks like Starter pricing, the plan without abandoned cart. The page ranks #1 for 5 of 10 prompts, so errors get repeated.",
+   "context": "Marketer is $59/mo at 1k contacts. Klaviyo is about $30 (third-party source)."
+  },
+  {
+   "action": "Publish a dated revenue-attribution statement",
+   "detail": "State per-message and per-workflow revenue reporting in one plain line, and link it from the comparison page.",
+   "why": "57% of live answers say Klaviyo's revenue reporting is better. GetResponse already reports it (Marketer and up).",
+   "context": "Existing post: email-revenue-attribution, updated 15 Apr 2026."
+  },
+  {
+   "action": "Get GetResponse into “Klaviyo alternatives” lists",
+   "detail": "Pitch the list pages these answers cite.",
+   "why": "Google's and Gemini's alternatives answers leave GetResponse out. Claude's suggests Omnisend.",
+   "context": "Cited list sites include ventureharbour, drip, constantcontact and campaignmonitor."
+  },
+  {
+   "action": "Name the abandoned-cart plan up front",
+   "detail": "On every e-commerce page, say which plan includes it.",
+   "why": "12 of 40 live answers say it's locked to higher plans, versus 5 of 30 offline. It's true, so hiding it costs trust.",
+   "context": "Starter has none. Marketer is the first plan with it."
   }
  ],
  "gapNote": "Live search barely changes what AI says: the claims AI makes are about as common with search on as off. Claude with search on cited getresponse.com in 0 of 10 answers, Gemini in 1. ChatGPT cited it in 9 of 10 and still credited Klaviyo with better attribution. Google quotes GetResponse's own comparison page for price ($15/mo, $65 at 10k), which looks like Starter pricing, the plan without abandoned cart. Check that page's figures, and state revenue attribution and the new flows in plain, dated lines so live engines have something to quote.",
